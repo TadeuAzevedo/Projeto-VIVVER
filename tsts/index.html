@@ -1,32 +1,119 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Teste</title>
 </head>
-<body>
-    <div id = "frm">  
-        <img src="logo.png" width="50%">
-        <h1>Login</h1>  
-        <form name="f1" action="autenticacao.php" method="POST">  
-            <p>  
-                <label>Usuário: </label><br>
-                <input type="text" id="usuario" name ="usuario" style="width: 97%;"/>  
-            </p>  
-            <p>  
-                <label>Senha: </label><br>
-                <input type="password" id="senha" name="senha" style="width: 97%;"/>
-            </p>  
-            <p>     
-                <br><input type="submit" id="btn" value="Entrar"/>  
-            </p>
-            <p>Não é cadastrado? <a href="cadastrocolaborador.php">Cadastre-se!</a></p>
-        </form>  
-    </div>  
-</body>
-</html>
 
-<!-- <a href="cadastrocolaborador.php?id=<?php echo $id?>"><button type="button">Cadastro Colaborador</button></a> -->
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-5 esquerda" align="center">
+                <div class="teste">
+                    <img src="logo.png" width="60%">
+                    <br><br><br>
+                    <h1 style="width: 60%; text-align: left;">Login</h1>
+                    <br>
+                    <form action="autenticacao.php" method="POST">
+                        <label style="font-weight: bolder; color: grey;width: 60%;text-align: left;">Usuário:</label>
+                        <br>
+                        <input type="text" name="usuario" id="usuario" placeholder="Digite seu usuário"
+                            style="width: 60%;">
+                        <br><br>
+                        <label style="font-weight: bolder; color: grey;width: 60%;text-align: left;">Senha:</label>
+                        <br>
+                        <input type="password" name="senha" id="senha" placeholder="Digite sua senha"
+                            style="width: 60%;">
+                        <br>
+                        <br>
+                        <br>
+                        <input type="submit" id="btn" value="Entrar">
+                        <br>
+                        <br>
+                        <p style="width: 60%; text-align: left;">Não é cadastrado? <a
+                                href="cadastrocolaborador.php">Cadastre-se!</a></p>
+                    </form>
+                    <style>
+                        .esquerda {
+                            height: 100vh;
+                            display: flex;
+                        }
+                        .teste{
+                            margin: auto;
+                        }
+                        input[type=text] {
+                            border: none;
+                            border-bottom: 1px solid grey;
+                            outline: none;
+                        }
+                        input[type=password] {
+                            border: none;
+                            border-bottom: 1px solid grey;
+                            outline: none;
+                        }
+                        input[type=text]:hover {
+                            border-bottom: 1px solid black;
+                        }
+                        input[type=password]:hover {
+                            border-bottom: 1px solid black;
+                        }
+                        input[type=text]:active{
+                            background-color: white;
+                        }
+                        #btn {
+                            background-color: #01659e;
+                            color: white;
+                            border-radius: 2px;
+                            width: 60%;
+                            height: 80px;
+                            font-size: 170%;
+                            border: none;
+                        }
+                        #btn:hover {
+                            background-color: #249820;
+                        }
+                        a:hover {
+                            font-style: italic;
+                        }
+                    </style>
+                </div>
+            </div>
+            <div class=" col-7 direita">
+                <img src="loginImg.png">
+                <style>
+                    .direita{
+                        padding: 0;
+                    }
+                    .direita img{
+                        height: 100vh;
+                        width: 100%;
+                    }
+                </style>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
