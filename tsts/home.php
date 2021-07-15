@@ -15,6 +15,11 @@ $row = mysqli_fetch_array($result);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script>
+        function voltar(){
+            window.history.back();
+        }
+    </script>
     <title>Home</title>
 </head>
 <body>
@@ -39,7 +44,7 @@ $row = mysqli_fetch_array($result);
                     <a class="nav-link" target="_blank" href="https://www.vivver.com.br/">Site oficial</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#" onclick="voltar()">Voltar</a>
                 </li>
         </ul>
         </div>
@@ -61,8 +66,9 @@ $row = mysqli_fetch_array($result);
     <div style="margin:0 50px 0 50px;">
         <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button>
         <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastroalocacao.php?id=<?php echo $id?>';">Cadastrar alocação</button>
-        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'visitasusuario.php?id=<?php echo $id?>';">Visitas cadastradas</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'visitasusuario.php?id=<?php echo $id?>';">Visistas cadastradas</button>
         <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'tabelacolaborador.php?id=<?php echo $id?>';">Colaboradores cadastrados</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'email.php?id=<?php echo $id?>';">Teste Email</button>
     </div>
 
 

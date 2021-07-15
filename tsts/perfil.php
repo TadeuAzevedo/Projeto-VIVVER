@@ -15,6 +15,11 @@ $row = mysqli_fetch_array($result);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script>
+        function voltar(){
+            window.history.back();
+        }
+    </script>
     <title>Perfil</title>
 </head>
 <body>
@@ -55,7 +60,7 @@ $row = mysqli_fetch_array($result);
                     <a class="nav-link" target="_blank" href="https://www.vivver.com.br/">Site oficial</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#" onclick="voltar()">Voltar</a>
                 </li>
         </ul>
         </div>
@@ -84,7 +89,7 @@ $row = mysqli_fetch_array($result);
                 }else if($row['setor'] == 3){
                     echo "Financeiro";
                 }else if($row['setor'] == 4){
-                    echo "Aprovador";
+                    echo "Coordenador";
                 }else if($row['setor'] == 0){
                     echo "Administrador";
                 }

@@ -19,6 +19,11 @@ $result = mysqli_query($con,$sql);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script>
+        function voltar(){
+            window.history.back();
+        }
+    </script>
     <title>Visitas do Usuário</title>
 </head>
 <body>
@@ -36,7 +41,7 @@ $result = mysqli_query($con,$sql);
                     <a class="nav-link" target="_blank" href="https://www.vivver.com.br/">Site oficial</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#" onclick="voltar()">Voltar</a>
                 </li>
         </ul>
         </div>
@@ -68,13 +73,12 @@ $result = mysqli_query($con,$sql);
                     </thead>
                     <tbody>
                         <?php
-                        
                         while($row = mysqli_fetch_array($result)){
                             echo "<tr>";
                             echo "<th scope='row'>". $row['nomeColaborador'] ."</th>";
                             echo "<td>". $row['local'] ."</td>";
-                            echo "<td>". $row['periodoInicial'] ."</td>";
-                            echo "<td>". $row['periodoFinal'] ."</td>";
+                            echo "<td>". date('d-m-Y', strtotime( $row['periodoInicial'])) ."</td>";
+                            echo "<td>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
                             echo "<td>". $row['atividade'] ."</td>";
                             echo "<td>". $row['contatoLocal'] ."</td>";
                             echo "</tr>";
