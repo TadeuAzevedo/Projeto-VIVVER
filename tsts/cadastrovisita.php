@@ -81,18 +81,18 @@ $id = $_GET['id'];
                         <br>
                         <input type="date" name="dtFinal" id="dtFinal" required>
                         <br><br>
-                        <label for="atividade">Atividade:</label>
-                        <br>
-                        <input type="text" name="txtAtv" id="txtAtv" autocomplete="off" required>
-                        <br><br>
                         <label for="cttLocal">Contato local:</label>
                         <br>
                         <input type="text" name="cttLocal" id="cttLocal" autocomplete="off" required>
+                        <br><br>
+                        <label for="atividade">Atividade:</label>
+                        <textarea name="txtAtv" id="txtAtv" maxlength="255"></textarea>
                         <br>
                         <br>
                         <input type="submit" name="enviar" id="btn" value="Cadastrar" required>
                         <br>
                     </form>
+
                     <style>
                         body{
                             background-color: #F1F1F1;
@@ -106,6 +106,10 @@ $id = $_GET['id'];
                             padding: 3vh 6vw 7vh 6vw;
                             border: 2px solid black;
                             background-color: white;
+                        }
+                        textarea{
+                            width: 100%;
+                            font-size: 90%;
                         }
                         label{
                             color: #686868;

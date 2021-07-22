@@ -9,6 +9,7 @@ echo "<table border='1'>
 <th>Usuário</th>
 <th>Telefone</th>
 <th>Email</th>
+<th>Setor</th>
 </tr>";
 
 while($row = mysqli_fetch_array($result))
@@ -18,6 +19,7 @@ echo "<td>" . $row['nomeCompleto'] . "</td>";
 echo "<td>" . $row['usuario'] . "</td>";
 echo "<td>" . $row['telefone'] . "</td>";
 echo "<td>" . $row['email'] . "</td>";
+echo "<td>" . $row['setor'] . "</td>";
 echo "</tr>";
 }
 echo "</table>";

@@ -6,6 +6,8 @@ $id = $_GET['id'];
 $result = mysqli_query($con, "SELECT nomeCompleto FROM cadastrocolaborador WHERE id='$id'");
 $row = mysqli_fetch_array($result);
 
+include('calendario.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +22,31 @@ $row = mysqli_fetch_array($result);
             window.history.back();
         }
     </script>
+    <style>
+            .container {
+                font-family: 'Noto Sans', sans-serif;
+                margin-top: 80px;
+            }
+            h3 {
+                margin-bottom: 30px;
+            }
+            th {
+                height: 30px;
+                text-align: center;
+            }
+            td {
+                height: 60px;
+            }
+            .today {
+                background: orange;
+            }
+            th:nth-of-type(1), td:nth-of-type(1) {
+                color: red;
+            }
+            th:nth-of-type(7), td:nth-of-type(7) {
+                color: blue;
+            }
+        </style>
     <title>Home</title>
 </head>
 <body>
@@ -63,14 +90,37 @@ $row = mysqli_fetch_array($result);
     <br>
     <h1 style="text-align: center;">Bem vindo, <?php echo $row['nomeCompleto'] ?></h1>
     <h2 style="text-align: center;">O que deseja fazer?</h2><br>
-    <div style="margin:0 50px 0 50px;">
-        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button>
-        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastroalocacao.php?id=<?php echo $id?>';">Cadastrar alocação</button>
-        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'visitasusuario.php?id=<?php echo $id?>';">Visistas cadastradas</button>
-        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'tabelacolaborador.php?id=<?php echo $id?>';">Colaboradores cadastrados</button>
-        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'email.php?id=<?php echo $id?>';">Teste Email</button>
-    </div>
 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 esquerda">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>D</th>
+                        <th>S</th>
+                        <th>T</th>
+                        <th>Q</th>
+                        <th>Q</th>
+                        <th>S</th>
+                        <th>S</th>
+                    </tr>
+                    <?php
+                        foreach ($weeks as $week) {
+                            echo $week;
+                        }
+                    ?>
+                </table>
+                <h3><a href="?id=<?php echo $id ?>&ym=<?php echo $prev; ?>">&lt;</a> <?php echo $html_title; ?> <a href="?id=<?php echo $id ?>&ym=<?php echo $next; ?>">&gt;</a></h3>
+            </div>
+            <div class="col-6 direita">
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastroalocacao.php?id=<?php echo $id?>';">Cadastrar alocação</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'visitasusuario.php?id=<?php echo $id?>';">Visistas cadastradas</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'tabelacolaborador.php?id=<?php echo $id?>';">Colaboradores cadastrados</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'formEmail.php?id=<?php echo $id?>';">Enviar emails para implantadores</button>
+            </div>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

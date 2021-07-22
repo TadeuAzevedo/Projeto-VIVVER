@@ -1,10 +1,12 @@
 <?php
-$to      = 'tadeu.cruz@vivver.com.br';
-$subject = 'the subject';
-$message = 'hello';
-$headers = 'From: ttadeu100@gmail.com'       . "\r\n" .
-             'Reply-To: tadeu.cruz@vivver.com.com' . "\r\n" .
-             'X-Mailer: PHP/';
-
-mail($to, $subject, $message, $headers);
+$to_email = "ttadeu100@gmail.com";
+$subject = "Teste simples de envio de email via PHP";
+$body = "Olá, este é um email de teste enviado por PHP Script";
+$headers = "From: sender\'s email";
+ 
+if (mail($to_email, $subject, $body, $headers)) {
+    echo "Email enviado com sucesso para $to_email.";
+} else {
+    echo "Falha no envio do email.";
+}
 ?>

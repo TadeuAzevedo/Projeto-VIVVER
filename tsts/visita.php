@@ -11,6 +11,10 @@
     $txtAtv = $_POST['txtAtv'];
     $cttLocal = $_POST['cttLocal'];
 
+    if($dtInicial > $dtFinal){
+        echo "<script>setTimeout(function(){ alert('Data inicial não pode ser maior que data final'); voltar();}, 1000);</script>";
+    }else {
+
     $sql = "INSERT INTO `cadastrovisita` (`nomeColaborador`,`local`,`periodoInicial`,`periodoFinal`,`atividade`,`contatoLocal`)VALUES ('$txtNome','$txtLocal','$dtInicial','$dtFinal','$txtAtv','$cttLocal');";
     
     $rs = mysqli_query($con, $sql);
@@ -94,8 +98,8 @@
         echo "deu ruim";
     }
 
-    $result = mysqli_query($con, "SELECT id FROM cadastrocolaborador2");
-    
+    $result = mysqli_query($con, "SELECT id FROM cadastrocolaborador");
+    }
 ?>
 <html>
     <head>
