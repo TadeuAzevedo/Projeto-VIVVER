@@ -1,4 +1,22 @@
 <?php
+
+$id = $_GET['id'];
+
+$con = mysqli_connect("localhost", "root", "", "programacaosemanalteste");
+$getUser = "SELECT nomeCompleto FROM cadastrocolaborador WHERE id='$id'";
+$userResult = mysqli_query($con, $getUser);
+$user = mysqli_fetch_array($userResult);
+
+$getData = "SELECT periodoInicial , periodoFinal FROM cadastrovisita WHERE nomeColaborador = '".$user['nomeCompleto']."'";
+$resultData = mysqli_query($con,$getData);
+$rowData = mysqli_fetch_array($resultData);
+
+//$dataI = new DateTime($rowData['periodoInicial']);
+//$dataF = new DateTime($rowData['periodoFinal']);
+
+//$periodo = $dataI->diff($dataF);
+//$duracao = $periodo->d;
+
 date_default_timezone_set('America/Sao_Paulo');
 
 if (isset($_GET['ym'])) {
@@ -29,27 +47,42 @@ $week = '';
 
 $week .= str_repeat('<td></td>', $str);
 
-for ( $day = 1; $day <= $day_count; $day++, $str++) {
-     
-    $date = $ym . '-' . $day;
-     
-    if ($today == $date) {
-        $week .= '<td class="today">' . $day;
-    } else {
-        $week .= '<td>' . $day;
-    }
-    $week .= '</td>';
-     
-    if ($str % 7 == 6 || $day == $day_count) {
+	for ( $day = 1; $day <= $day_count; $day++, $str++) {
+	     
+	    $date = $ym . '-' . $day;
+	     
+	    if ($today == $date) {
 
-        if ($day == $day_count) {
-            $week .= str_repeat('<td></td>', 6 - ($str % 7));
-        }
+	        $week .= '<td class="today">' . $day;
 
-        $weeks[] = '<tr>' . $week . '</tr>';
+	    } else if ($rowData['periodoInicial'] == $date){
 
-        $week = '';
-    }
+	    	$week .= '<td class="visitaI">' . $day;
 
-}
+	    } else if($rowData['periodoFinal'] == $date){
+
+	    	$week .= '<td class="visitaF">' . $day;
+
+	    } else{
+
+	        $week .= '<td>' . $day;
+
+	    }
+	    
+	    $week .= '</td>';
+	     
+	    if ($str % 7 == 6 || $day == $day_count) {
+
+	        if ($day == $day_count) {
+	            $week .= str_repeat('<td></td>', 6 - ($str % 7));
+	        }
+
+	        $weeks[] = '<tr>' . $week . '</tr>';
+
+	        $week = '';
+	    }
+
+	}
+
+
 ?>

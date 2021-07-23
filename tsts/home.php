@@ -38,7 +38,13 @@ include('calendario.php');
                 height: 60px;
             }
             .today {
-                background: orange;
+                background: #56acff;
+            }
+            .visitaI {
+                background: #66ff66;
+            }
+            .visitaF {
+                background: #66ff66;
             }
             th:nth-of-type(1), td:nth-of-type(1) {
                 color: red;
