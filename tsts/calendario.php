@@ -55,14 +55,6 @@ $week .= str_repeat('<td></td>', $str);
 
 	        $week .= '<td class="today">' . $day;
 
-	    } else if ($rowData['periodoInicial'] == $date){
-
-	    	$week .= '<td class="visitaI">' . $day;
-
-	    } else if($rowData['periodoFinal'] == $date){
-
-	    	$week .= '<td class="visitaF">' . $day;
-
 	    } else{
 
 	        $week .= '<td>' . $day;

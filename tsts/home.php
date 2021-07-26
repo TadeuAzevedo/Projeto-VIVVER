@@ -3,8 +3,9 @@
 $con = mysqli_connect("localhost", "root", "", "programacaosemanalteste");
 session_start();
 $id = $_GET['id'];
-$result = mysqli_query($con, "SELECT nomeCompleto FROM cadastrocolaborador WHERE id='$id'");
+$result = mysqli_query($con, "SELECT * FROM cadastrocolaborador WHERE id='$id'");
 $row = mysqli_fetch_array($result);
+$setor = $row['setor'];
 
 include('calendario.php');
 
@@ -79,7 +80,7 @@ include('calendario.php');
                 <li class="nav-item">
                     <a class="nav-link" href="#" onclick="voltar()">Voltar</a>
                 </li>
-        </ul>
+            </ul>
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
@@ -116,12 +117,13 @@ include('calendario.php');
                         }
                     ?>
                 </table>
-                <h3><a href="?id=<?php echo $id ?>&ym=<?php echo $prev; ?>">&lt;</a> <?php echo $html_title; ?> <a href="?id=<?php echo $id ?>&ym=<?php echo $next; ?>">&gt;</a></h3>
+                <h3 style="text-align: center;"><a href="?id=<?php echo $id ?>&ym=<?php echo $prev; ?>">&lt;</a> <?php echo $html_title; ?> <a href="?id=<?php echo $id ?>&ym=<?php echo $next; ?>">&gt;</a></h3>
             </div>
             <div class="col-6 direita">
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button>
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastroalocacao.php?id=<?php echo $id?>';">Cadastrar alocação</button>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'visitasusuario.php?id=<?php echo $id?>';">Visistas cadastradas</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'visitasusuario.php?id=<?php echo $id?>';">Minhas visitas cadastradas</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'tabelavisita.php?id=<?php echo $id?>';">Todas visitas cadastradas</button>
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'tabelacolaborador.php?id=<?php echo $id?>';">Colaboradores cadastrados</button>
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'formEmail.php?id=<?php echo $id?>';">Enviar emails para implantadores</button>
             </div>

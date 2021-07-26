@@ -14,32 +14,38 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-5 esquerda" align="center">
+            <div class="col-lg-5 col-sm-12 esquerda" align="center">
                 <div class="teste">
                     <img src="logo.png" width="60%">
                     <br><br><br>
-                    <h1 style="width: 60%; text-align: left;">Login</h1>
+                    <h1>Login</h1>
                     <br>
                     <form action="autenticacao.php" method="POST">
-                        <label style="font-weight: bolder; color: grey;width: 60%;text-align: left;">Usuário:</label>
+                        <label>Usuário:</label>
                         <br>
-                        <input type="text" name="usuario" id="usuario" placeholder="Digite seu usuário"
-                            style="width: 60%;">
+                        <input type="text" name="usuario" id="usuario" placeholder="Digite seu usuário">
                         <br><br>
-                        <label style="font-weight: bolder; color: grey;width: 60%;text-align: left;">Senha:</label>
+                        <label>Senha:</label>
                         <br>
-                        <input type="password" name="senha" id="senha" placeholder="Digite sua senha"
-                            style="width: 60%;">
+                        <input type="password" name="senha" id="senha" placeholder="Digite sua senha">
                         <br>
                         <br>
                         <br>
                         <input type="submit" id="btn" value="Entrar">
                         <br>
                         <br>
-                        <p style="width: 60%; text-align: left;">Não é cadastrado? <a
+                        <p>Não é cadastrado? <a
                                 href="cadastrocolaborador.php">Cadastre-se!</a></p>
                     </form>
                     <style>
+                        h1{
+                            width: 60%;
+                            text-align: left;
+                        }
+                        p{
+                            width: 60%;
+                            text-align: left;
+                        }
                         .esquerda {
                             height: 100vh;
                             display: flex;
@@ -51,11 +57,13 @@
                             border: none;
                             border-bottom: 1px solid grey;
                             outline: none;
+                            width: 60%
                         }
                         input[type=password] {
                             border: none;
                             border-bottom: 1px solid grey;
                             outline: none;
+                            width: 60%
                         }
                         input[type=text]:hover {
                             border-bottom: 1px solid black;
@@ -81,10 +89,45 @@
                         a:hover {
                             font-style: italic;
                         }
+                        label{
+                            font-weight: bolder;
+                            color: grey;
+                            width: 60%;
+                            text-align: left;
+                        }
+                        @media screen and (max-width: 415px){
+
+                            .direita{
+                                display: none;
+                            }
+                            label{
+                                width: 80%;
+                            }
+                            #btn{
+                                width: 80%;
+                            }
+                            input[type=password]{
+                                width: 80%;
+                            }
+                            input[type=text]{
+                                width: 80%;
+                            }
+                            p{
+                                width: 80%;
+                            }
+                            h1{
+                                width: 80%;
+                            }
+                            body{
+                                background-image: url("loginImg.png");
+                                background-size: 100vw 100vh;
+                                background-repeat: no-repeat;
+                            }
+                        }
                     </style>
                 </div>
             </div>
-            <div class=" col-7 direita">
+            <div class=" col-lg-7 col-sm-0 direita">
                 <img src="loginImg.png">
                 <style>
                     .direita{

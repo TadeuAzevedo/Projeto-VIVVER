@@ -1,42 +1,113 @@
 <?php
-$con=mysqli_connect("localhost","root","","programacaosemanalteste");
-
-$result = mysqli_query($con,"SELECT * FROM cadastrovisita");
-
-echo "<table border='1'>
-<tr>
-<th>Nome</th>
-<th>Local</th>
-<th>Periodo Inicial</th>
-<th>Periodo Final</th>
-<th>Atividade</th>
-<th>Contato Local</th>
-</tr>";
-
-while($row = mysqli_fetch_array($result))
-{
-echo "<tr>";
-echo "<td>" . $row['nomeColaborador'] . "</td>";
-echo "<td>" . $row['local'] . "</td>";
-echo "<td>" . $row['periodoInicial'] . "</td>";
-echo "<td>" . $row['periodoFinal'] . "</td>";
-echo "<td>" . $row['atividade'] . "</td>";
-echo "<td>" . $row['contatoLocal'] . "</td>";
-echo "</tr>";
-}
-echo "</table>";
-
 session_start();
 $id = $_GET['id'];
 
-mysqli_close($con);
+$con=mysqli_connect("localhost","root","","programacaosemanalteste");
+$result = mysqli_query($con,"SELECT * FROM cadastrovisita");
+
+if (isset($_GET['pageno'])){
+	$pageno = $_GET['pageno'];
+} else {
+	$pageno = 1;
+}
+$numVisitasPag = 7;
+$offset = ($pageno-1) * $numVisitasPag;
+
+$totalPagSql = "SELECT * FROM cadastrovisita";
+$resultPag = mysqli_query($con, $totalPagSql);
+$totalRows = mysqli_fetch_array($resultPag)[0];
+$totalPag = ceil($totalRows / $numVisitasPag);
+
+$sql = "SELECT * FROM cadastrovisita LIMIT $offset, $numVisitasPag";
+$resData = mysqli_query($con, $sql);
+
 ?>
+
 
 <html>
     <head>
         <meta charset="UTF-8">
+        <title>Visitas cadastradas</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
-        <a href="home.php?id=<?php echo $id?>"><button type="button">Voltar ao menu</button></a>
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <a class="navbar-brand" href="home.php?id=<?php echo $id ?>">
+            <img src="teste.png" width="150em" class="d-inline-block align-top" alt="">
+        </a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.php?id=<?php echo $id ?>">Início</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" target="_blank" href="https://www.vivver.com.br/">Site oficial</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="voltar()">Voltar</a>
+                </li>
+        </ul>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="navbar-nav" href="perfil.php?id=<?php echo $id ?>"><img src="icone.png" width="40em"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">&ensp;Sair</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Local</th>
+                        <th scope="col">Data Inicial</th>
+                        <th scope="col">Data Final</th>
+                        <th scope="col">Atividade</th>
+                        <th scope="col">Contato Local</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        while($row = mysqli_fetch_array($resData)){
+                            echo "<tr>";
+                            echo "<th scope='row'>". $row['nomeColaborador'] ."</th>";
+                            echo "<td>". $row['local'] ."</td>";
+                            echo "<td>". date('d-m-Y', strtotime( $row['periodoInicial'])) ."</td>";
+                            echo "<td>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
+                            echo "<td>". $row['atividade'] ."</td>";
+                            echo "<td>". $row['contatoLocal'] ."</td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+                <ul class="pagination">
+                	
+       			 	<li>
+            			<a href="?id=<?php echo $id?><?php if($pageno <= 1){ echo '#'; } else { echo "&pageno=".($pageno - 1); } ?>">Anterior</a>&ensp;&ensp;
+        			</li>
+
+        			<li>
+            			<a href="?id=<?php echo $id?><?php echo "&pageno=".($pageno + 1); ?>">Próxima</a>
+        			</li>
+        			
+                </ul>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>
