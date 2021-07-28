@@ -33,6 +33,7 @@ mysqli_close($con);
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
     </head>
     <body>
         <a href="home.php?id=<?php echo $id?>"><button type="button">Voltar ao menu</button></a>

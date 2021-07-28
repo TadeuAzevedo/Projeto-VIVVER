@@ -18,6 +18,7 @@ include('calendario.php');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
     <script>
         function voltar(){
             window.history.back();
@@ -40,12 +41,6 @@ include('calendario.php');
             }
             .today {
                 background: #56acff;
-            }
-            .visitaI {
-                background: #66ff66;
-            }
-            .visitaF {
-                background: #66ff66;
             }
             th:nth-of-type(1), td:nth-of-type(1) {
                 color: red;
@@ -120,16 +115,45 @@ include('calendario.php');
                 <h3 style="text-align: center;"><a href="?id=<?php echo $id ?>&ym=<?php echo $prev; ?>">&lt;</a> <?php echo $html_title; ?> <a href="?id=<?php echo $id ?>&ym=<?php echo $next; ?>">&gt;</a></h3>
             </div>
             <div class="col-6 direita">
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastroalocacao.php?id=<?php echo $id?>';">Cadastrar alocação</button>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'visitasusuario.php?id=<?php echo $id?>';">Minhas visitas cadastradas</button>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'tabelavisita.php?id=<?php echo $id?>';">Todas visitas cadastradas</button>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'tabelacolaborador.php?id=<?php echo $id?>';">Colaboradores cadastrados</button>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'formEmail.php?id=<?php echo $id?>';">Enviar emails para implantadores</button>
+
+                <?php 
+
+                    if($row['setor'] == 0 || $row['setor'] == 1 || $row['setor'] == 4 ){
+                        //Botão 1 - Cadastrar Visita
+                        echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
+                        echo "'cadastrovisita.php?id=".$id."'";
+                        echo ';">Cadastrar visita</button>';
+                        //Botão 2 - Ver visitas cadastradas no usuário
+                        echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
+                        echo "'visitasusuario.php?id=".$id."'";
+                        echo ';">Minhas visitas cadastradas</button>';
+                    }
+                    if($row['setor'] == 0 || $row['setor'] == 2 || $row['setor'] == 3 || $row['setor'] == 4){
+                        //Botão 3 - Cadastrar Alocação
+                        echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
+                        echo "'cadastroalocacao.php?id=".$id."'";
+                        echo ';">Cadastrar alocação</button>';
+                    }
+                    if($row['setor'] == 4 || $row['setor'] == 0){
+                        //Botão 4 - Ver todas visitas cadastradas
+                        echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
+                        echo "'tabelavisita.php?id=".$id."'";
+                        echo ';">Todas visitas cadastradas</button>';
+                        //Botão 5 - Ver todos colaboradores cadastrados
+                        echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
+                        echo "'tabelacolaborador.php?id=".$id."'";
+                        echo ';">Colaboradores cadastrados</button>';
+                        //Botão 6 - Enviar email de visita para implantadores
+                        echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
+                        echo "'formEmail.php?id=".$id."'";
+                        echo ';">Enviar emails para implantadores</button>';
+                    }
+
+                ?>
+
             </div>
         </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

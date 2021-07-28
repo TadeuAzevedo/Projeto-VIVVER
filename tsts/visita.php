@@ -112,6 +112,7 @@
                 window.history.back();
             }
         </script>
+        <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
         <title>Visitas do Usuário</title>
         </script>
     </head>

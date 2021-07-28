@@ -13,6 +13,7 @@ $con = mysqli_connect("localhost", "root", "", "programacaosemanalteste");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
     <title>Cadastro de colaborador</title>
 </head>
 
@@ -48,7 +49,7 @@ $con = mysqli_connect("localhost", "root", "", "programacaosemanalteste");
                         <label for="dataInicial" style="font-weight: bolder; color: grey;width: 100%;text-align: left;">Email:</label>
                         <br>
                         <input type="text" name="txtEmail" id="txtEmail" style="width: 100%;" placeholder="Digite seu email" required>
-                        <label for="setor" style="font-weight: bolder; color: grey;width: 100%;text-align: left;">Área:</label>
+                        <label for="setor" style="font-weight: bolder; color: grey;width: 100%;text-align: left;">Setor:</label>
                         <br>
                         <select name="txtSetor" id="txtSetor" style="width: 100%;" required>
                             <option value="1">Implantação</option>

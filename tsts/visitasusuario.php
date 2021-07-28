@@ -24,6 +24,7 @@ $result = mysqli_query($con,$sql);
             window.history.back();
         }
     </script>
+    <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
     <title>Visitas do Usuário</title>
 </head>
 <body>

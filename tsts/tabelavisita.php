@@ -29,6 +29,7 @@ $resData = mysqli_query($con, $sql);
         <meta charset="UTF-8">
         <title>Visitas cadastradas</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
     </head>
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-primary">

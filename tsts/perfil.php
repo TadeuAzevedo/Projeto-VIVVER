@@ -20,11 +20,27 @@ $row = mysqli_fetch_array($result);
             window.history.back();
         }
     </script>
+    <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
+    <style>
+        label{
+            color: grey;
+            font-weight: bolder;
+            font-size: 90%;
+        }
+        input[type=text] {
+            border: none;
+            border-bottom: 1px solid grey;
+            outline: none;
+        }
+        input[type=text]:hover {
+            border-bottom: 1px solid black;
+        }
+    </style>
     <title>Perfil</title>
 </head>
 <body>
-<!-- Início modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Início modal foto -->
+    <div class="modal fade" id="modalFoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
@@ -45,7 +61,42 @@ $row = mysqli_fetch_array($result);
         </div>
     </div>
     </div>
-<!-- Fim modal -->
+<!-- Fim modal foto -->
+<!-- Início modal edição -->
+    <div class="modal fade" id="modalEdicao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar cadastro</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form name="cadastroColaborador" method="POST" action="edit2.php?id=<?php echo $id?>" autocomplete="off">
+                <p>
+                    <label for="nome">Nome completo:</label><br>
+                    <input type="text" name="txtNomeC" id="txtNomeC" for="nome" style="width: 97%;" value="<?php echo $row['nomeCompleto'];?>" required>
+                </p>
+                <p>
+                    <label for="local">Telefone:</label><br>
+                    <input type="text" name="txtFone" id="txtFone" style="width: 97%;" value="<?php echo $row['telefone'];?>" required>
+                </p>
+                <p>
+                    <label for="dataInicial">Email:</label><br>
+                    <input type="text" name="txtEmail" id="txtEmail" style="width: 97%;" value="<?php echo $row['email'];?>" required>
+                </p>
+                <br>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <a href="edit2.php"><button type="submit" name="enviar" id="btn" value="Enviar" class="btn btn-primary">Salvar mudanças</button></a>
+             </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- Fim modal edição -->
 <!-- Início nav -->
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
@@ -79,7 +130,7 @@ $row = mysqli_fetch_array($result);
     <div class="container-fluid">
         <div class="row">
             <div class="col-3 esquerda">
-                <button type="button" data-toggle="modal" data-target="#exampleModal"><img src="uploads/<?php echo $row['imagem'];?>"></button><br>
+                <button type="button" data-toggle="modal" data-target="#modalFoto"><img src="uploads/<?php echo $row['imagem'];?>"></button><br>
                 <h3><?php echo $row['nomeCompleto'];?></h3>
                 <p style="text-align:center;font-size:110%;font-weight:bolder"><?php
                 if($row['setor'] == 1){
@@ -126,7 +177,7 @@ $row = mysqli_fetch_array($result);
                 <span style="font-weight:bolder;font-size:90%">Email: </span><?php echo $row['email']?><br>
                 <span style="font-weight:bolder;font-size:90%">Usuário: </span><?php echo $row['usuario']?><br>
                 <span style="font-weight:bolder;font-size:90%">Telefone: </span><?php echo $row['telefone']?></p>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'editcolaborador.php?id=<?php echo $id?>';">Editar cadastro</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#modalEdicao">Editar cadastro</button>
                 <style>
                     .direita{
                         height: fit-content;
