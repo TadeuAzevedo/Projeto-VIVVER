@@ -20,6 +20,35 @@ $row = mysqli_fetch_array($result);
             window.history.back();
         }
     </script>
+    <script>
+        function saveData(){
+            var input = document.getElementById("nome");
+            sessionStorage.setItem("nome", input.value);
+            return true;
+        }
+        function mascara(o,f){
+            v_obj=o
+            v_fun=f
+            setTimeout("execmascara()",1)
+        }
+        function execmascara(){
+            v_obj.value=v_fun(v_obj.value)
+        }
+        function mtel(v){
+            v=v.replace(/\D/g,""); 
+            v=v.replace(/^(\d{2})(\d)/g,"($1) $2"); 
+            v=v.replace(/(\d)(\d{4})$/,"$1-$2"); 
+            return v;
+        }
+        function id( el ){
+            return document.getElementById( el );
+        }
+        window.onload = function(){
+            id('txtFone').onkeyup = function(){
+                mascara( this, mtel );
+            }
+        }
+    </script>
     <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
     <style>
         label{
@@ -80,7 +109,7 @@ $row = mysqli_fetch_array($result);
                 </p>
                 <p>
                     <label for="local">Telefone:</label><br>
-                    <input type="text" name="txtFone" id="txtFone" style="width: 97%;" value="<?php echo $row['telefone'];?>" required>
+                    <input type="text" name="txtFone" id="txtFone" maxlength="15" style="width: 100%;" value="<?php echo $row['telefone'];?>" required>
                 </p>
                 <p>
                     <label for="dataInicial">Email:</label><br>

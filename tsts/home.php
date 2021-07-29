@@ -36,11 +36,22 @@ include('calendario.php');
                 height: 30px;
                 text-align: center;
             }
+            th:hover{
+                background: #dddddd;
+                cursor: default;
+            }
             td {
                 height: 60px;
             }
+            td:hover{
+                background: #eeeeee;
+                cursor: default;
+            }
             .today {
                 background: #56acff;
+            }
+            .today:hover{
+                background: #348add;
             }
             th:nth-of-type(1), td:nth-of-type(1) {
                 color: red;

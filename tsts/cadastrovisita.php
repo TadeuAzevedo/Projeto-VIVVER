@@ -69,7 +69,7 @@ if($setor == 2 || $setor == 3){
                             <br>
                             <select name="txtNome" id="txtNome" required>';
 
-                            $resultB = mysqli_query($con, "SELECT nomeCompleto FROM cadastrocolaborador");
+                            $resultB = mysqli_query($con, "SELECT nomeCompleto FROM cadastrocolaborador WHERE setor = 1 OR setor = 4");
                             while($rows = mysqli_fetch_array($resultB)){
                             echo "<option>" .$rows['nomeCompleto'] . "</option>";
                             }

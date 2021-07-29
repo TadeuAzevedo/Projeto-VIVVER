@@ -9,13 +9,18 @@ $user = mysqli_fetch_array($userResult);
 
 $getData = "SELECT periodoInicial , periodoFinal FROM cadastrovisita WHERE nomeColaborador = '".$user['nomeCompleto']."'";
 $resultData = mysqli_query($con,$getData);
-$rowData = mysqli_fetch_array($resultData);
+//$rowData = mysqli_fetch_array($resultData);
 
 //$dataI = new DateTime($rowData['periodoInicial']);
 //$dataF = new DateTime($rowData['periodoFinal']);
 
 //$periodo = $dataI->diff($dataF);
 //$duracao = $periodo->d;
+
+//while($rowData = mysqli_fetch_array($resultData)){
+//	$dataI = strtotime($rowData['periodoInicial']);
+//	$novoFormato = date('Y-m-j', $dataI);
+//}
 
 date_default_timezone_set('America/Sao_Paulo');
 
@@ -54,12 +59,13 @@ $week .= str_repeat('<td></td>', $str);
 	    if ($today == $date) {
 
 	        $week .= '<td class="today">' . $day;
+			
+		} else{
 
-	    } else{
+			$week .= '<td>' . $day;
 
-	        $week .= '<td>' . $day;
-
-	    }
+		}
+		
 	    
 	    $week .= '</td>';
 	     
