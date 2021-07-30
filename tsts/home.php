@@ -53,6 +53,9 @@ include('calendario.php');
             .today:hover{
                 background: #348add;
             }
+            .visita{
+                background: green;
+            }
             th:nth-of-type(1), td:nth-of-type(1) {
                 color: red;
             }

@@ -9,7 +9,7 @@ $user = mysqli_fetch_array($userResult);
 
 $getData = "SELECT periodoInicial , periodoFinal FROM cadastrovisita WHERE nomeColaborador = '".$user['nomeCompleto']."'";
 $resultData = mysqli_query($con,$getData);
-//$rowData = mysqli_fetch_array($resultData);
+$rowData = mysqli_fetch_array($resultData);
 
 //$dataI = new DateTime($rowData['periodoInicial']);
 //$dataF = new DateTime($rowData['periodoFinal']);
@@ -55,8 +55,14 @@ $week .= str_repeat('<td></td>', $str);
 	for ( $day = 1; $day <= $day_count; $day++, $str++) {
 	     
 	    $date = $ym . '-' . $day;
+	    
+	    if($rowData['periodoInicial'] == $date){
+	    	$week .= '<td class="visita">' . $day;
+	    }else if($rowData['periodoFinal'] == $date){
+	    	$week .= '<td class="visita">' . $day;
+	    }
 	     
-	    if ($today == $date) {
+	    else if ($today == $date) {
 
 	        $week .= '<td class="today">' . $day;
 			
@@ -66,7 +72,6 @@ $week .= str_repeat('<td></td>', $str);
 
 		}
 		
-	    
 	    $week .= '</td>';
 	     
 	    if ($str % 7 == 6 || $day == $day_count) {
