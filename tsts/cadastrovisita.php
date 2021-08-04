@@ -68,8 +68,11 @@ if($setor == 2 || $setor == 3){
                             <label for="nome">Nome:</label>
                             <br>
                             <select name="txtNome" id="txtNome" required>';
-
-                            $resultB = mysqli_query($con, "SELECT nomeCompleto FROM cadastrocolaborador WHERE setor = 1 OR setor = 4");
+                            if($setor == 1){
+                                $resultB = mysqli_query($con, "SELECT nomeCompleto FROM cadastrocolaborador WHERE id=$id");
+                            }else if($setor == 4){
+                                $resultB = mysqli_query($con, "SELECT nomeCompleto FROM cadastrocolaborador WHERE setor = 1 OR setor = 4");
+                            }
                             while($rows = mysqli_fetch_array($resultB)){
                             echo "<option>" .$rows['nomeCompleto'] . "</option>";
                             }

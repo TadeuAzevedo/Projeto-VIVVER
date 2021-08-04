@@ -56,13 +56,13 @@ $week .= str_repeat('<td></td>', $str);
 	     
 	    $date = $ym . '-' . $day;
 	    
-	    if($rowData['periodoInicial'] == $date){
-	    	$week .= '<td class="visita">' . $day;
-	    }else if($rowData['periodoFinal'] == $date){
-	    	$week .= '<td class="visita">' . $day;
-	    }
+	    //if($rowData['periodoInicial'] == $date){
+	    	//$week .= '<td class="visita">' . $day;
+	    //}else if($rowData['periodoFinal'] == $date){
+	    //	$week .= '<td class="visita">' . $day;
+	    //}
 	     
-	    else if ($today == $date) {
+	    if ($today == $date) {
 
 	        $week .= '<td class="today">' . $day;
 			

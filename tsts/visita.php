@@ -15,7 +15,7 @@
         echo "<script>setTimeout(function(){ alert('Data inicial não pode ser maior que data final'); voltar();}, 1000);</script>";
     }else {
 
-    $sql = "INSERT INTO `cadastrovisita` (`nomeColaborador`,`local`,`periodoInicial`,`periodoFinal`,`atividade`,`contatoLocal`)VALUES ('$txtNome','$txtLocal','$dtInicial','$dtFinal','$txtAtv','$cttLocal');";
+    $sql = "INSERT INTO `cadastrovisita` (`nomeColaborador`,`local`,`periodoInicial`,`periodoFinal`,`atividade`,`contatoLocal`,`situação`)VALUES ('$txtNome','$txtLocal','$dtInicial','$dtFinal','$txtAtv','$cttLocal','1');";
     
     $rs = mysqli_query($con, $sql);
 
@@ -95,7 +95,7 @@
     </body>
         ';
     }else{
-        echo "deu ruim";
+        echo "<script>setTimeout(function(){ alert('Falha ao enviar visita (Não utilize caractéres especiais)'); voltar();}, 1000);</script>";
     }
 
     $result = mysqli_query($con, "SELECT id FROM cadastrocolaborador");

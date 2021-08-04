@@ -70,6 +70,7 @@ $result = mysqli_query($con,$sql);
                         <th scope="col">Data Final</th>
                         <th scope="col">Atividade</th>
                         <th scope="col">Contato Local</th>
+                        <th scope="col">Contato Local</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,6 +83,13 @@ $result = mysqli_query($con,$sql);
                             echo "<td>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
                             echo "<td>". $row['atividade'] ."</td>";
                             echo "<td>". $row['contatoLocal'] ."</td>";
+                            if($row['situação'] == 1){
+                                echo "<td>Pendente</td>";
+                            }else if($row['situação'] == 2){
+                                echo "<td style='color: #0B0;'>Aprovado</td>";
+                            }else if($row['situação'] == 3){
+                                echo "<td style='color: #f00;'>Reprovado</td>";
+                            }
                             echo "</tr>";
                         }
                         ?>

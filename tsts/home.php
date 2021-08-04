@@ -161,6 +161,14 @@ include('calendario.php');
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
                         echo "'formEmail.php?id=".$id."'";
                         echo ';">Enviar emails para implantadores</button>';
+                        //Botão 7 - Aprovar visitas
+                        echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
+                        echo "'visitaspendentes.php?id=".$id."'";
+                        echo ';">Visitas pendentes</button>';
+                        //Botão 8 - Visitas aprovadas
+                        echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
+                        echo "'visitasaprovadas.php?id=".$id."'";
+                        echo ';">Visitas aprovadas</button>';
                     }
 
                 ?>

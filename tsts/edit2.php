@@ -3,8 +3,7 @@
     $con = mysqli_connect("localhost", "root", "", "programacaosemanalteste");
     session_start();
     $id = $_GET['id'];
-   
-
+    
     $sqlUpdate = "UPDATE cadastrocolaborador SET nomeCompleto='".$_POST['txtNomeC']."', telefone='".$_POST['txtFone']."', email='".$_POST['txtEmail']."' WHERE id='".$id."'";
     $resultUpdate = mysqli_query($con,$sqlUpdate);
 
