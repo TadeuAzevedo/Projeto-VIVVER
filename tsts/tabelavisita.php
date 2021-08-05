@@ -89,9 +89,9 @@ $resData = mysqli_query($con, $sql);
                             if($row['situação'] == 1){
                                 echo "<td>Pendente</td>";
                             }else if($row['situação'] == 2){
-                                echo "<td>Aprovado</td>";
+                                echo "<td style='color: #0B0;'>Aprovado</td>";
                             }else if($row['situação'] == 3){
-                                echo "<td>Reprovado</td>";
+                                echo "<td style='color: #0B0;'>Reprovado</td>";
                             }
                             echo "</tr>";
                         }

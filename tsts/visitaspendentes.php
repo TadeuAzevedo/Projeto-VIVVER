@@ -60,9 +60,10 @@ $result = mysqli_query($con, $sql);
         </div>
     </nav>
 <br><br>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
+                
                 <table class="table table-bordered">
                     <thead class="thead-dark">
                         <tr>
@@ -86,13 +87,14 @@ $result = mysqli_query($con, $sql);
                             echo "<td>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
                             echo "<td>". $row['atividade'] ."</td>";
                             echo "<td>". $row['contatoLocal'] ."</td>";
-                            echo "<td style='text-align: center;'><a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=2'><img src='aprovado_cheio.png' width='45vw' class='img'></a>&ensp;<a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=3'><img src='reprovado_cheio.png' width='45vw' class='img'></a></td>";
+                            echo "<td style='text-align: center;margin: 0;'><a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=2&prioridade=1'><img src='prioritario.png' width='40vw' class='img'></a>&ensp;<a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=2&prioridade=0'><img src='aprovado_cheio.png' width='40vw' class='img'></a>&ensp;<a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=3&prioridade=3'><img src='reprovado_cheio.png' width='40vw' class='img'></a></td>";
                             echo "</tr>";
                         }
                         ?>
                     </tbody>
                 </table>
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button>
+                
             </div>
         </div>
     </div>

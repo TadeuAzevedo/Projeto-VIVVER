@@ -1,28 +1,31 @@
 <?php
 
-$con = mysqli_connect("localhost", "root", "", "programacaosemanalteste");
 $id = $_GET['id'];
+$con = mysqli_connect("localhost", "root", '', 'programacaosemanalteste');
 
-$user = "SELECT nomeCompleto FROM cadastrocolaborador WHERE id=$id";
-$resultUser = mysqli_query($con,$user);
-$userName = mysqli_fetch_array($resultUser);
+date_default_timezone_set('America/Sao_Paulo');
+$hoje = date("d-m-Y");
 
-$getData = "SELECT * FROM cadastrovisita WHERE nomeColaborador = '".$userName['nomeCompleto']."'";
-$resultData = mysqli_query($con,$getData);
-while($rowData = mysqli_fetch_array($resultData)){
-	echo $rowData['periodoInicial'];
-	echo "<br>";
-	echo $rowData['periodoFinal'];
-	echo "<br>";
-	echo "<br>";
+$dataInicial = strtotime("Friday");
+$dataFinal = strtotime("+7 days", $dataInicial);
+$dataInicialS = date("d-m-Y", $dataInicial);
+$dataFinalS = date("d-m-Y", $dataFinal);
+
+echo $hoje. "<br>";
+echo $dataInicialS. "<br>";
+echo $dataFinalS. "<br>";
+
+//$getNome = "SELECT nomeCompleto FROM cadastrocolaborador WHERE id=$id";
+//$resultNome = mysqli_query($con, $getNome);
+//$rowNome = mysqli_fetch_array($resultNome);
+//$nome = $rowNome['nomeCompleto'];
+//echo $nome;
+
+$sql = "SELECT * FROM cadastrovisita WHERE periodoInicial > $dataInicialS";
+$result = mysqli_query($con, $sql);
+while ($row = mysqli_fetch_array($result)) {
+	echo $row['local']. "<br>";
 }
 
-
-
-//$dataI = new DateTime($rowData['periodoInicial']);
-//$dataF = new DateTime($rowData['periodoFinal']);
-
-//$periodo = $dataI->diff($dataF);
-//$duracao = $periodo->d;
 
 ?>

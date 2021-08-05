@@ -4,8 +4,9 @@ $con = mysqli_connect('localhost', 'root', '', 'programacaosemanalteste');
 $id = $_GET['id'];
 $idv = $_GET['idv'];
 $novaSituacao = $_GET['nsituacao'];
+$prioridade = $_GET['prioridade'];
 
-$sql = "UPDATE cadastrovisita SET situação='".$novaSituacao."' WHERE id='".$idv."'";
+$sql = "UPDATE cadastrovisita SET situação='".$novaSituacao."',prioridade='".$prioridade."' WHERE id='".$idv."'";
 $result = mysqli_query($con, $sql);
 
 if($result && $novaSituacao == 2){
