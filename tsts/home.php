@@ -142,12 +142,12 @@ include('calendario.php');
                         echo "'visitasusuario.php?id=".$id."'";
                         echo ';">Minhas visitas cadastradas</button>';
                     }
-                    if($row['setor'] == 0 || $row['setor'] == 2 || $row['setor'] == 3 || $row['setor'] == 4){
+                    //if($row['setor'] == 0 || $row['setor'] == 2 || $row['setor'] == 3 || $row['setor'] == 4){
                         //Botão 3 - Cadastrar Alocação
-                        echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
-                        echo "'cadastroalocacao.php?id=".$id."'";
-                        echo ';">Cadastrar alocação</button>';
-                    }
+                        //echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
+                        //echo "'cadastroalocacao.php?id=".$id."'";
+                        //echo ';">Cadastrar alocação</button>';
+                    //}
                     if($row['setor'] == 4 || $row['setor'] == 0){
                         //Botão 4 - Ver todas visitas cadastradas
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
@@ -165,10 +165,11 @@ include('calendario.php');
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
                         echo "'visitaspendentes.php?id=".$id."'";
                         echo ';">Visitas pendentes</button>';
-                        //Botão 8 - Visitas aprovadas
+                        //Botão 8 - Editar visitas
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
-                        echo "'visitasaprovadas.php?id=".$id."'";
-                        echo ';">Visitas aprovadas</button>';
+                        echo "'deleteVisita.php?id=".$id."'";
+                        echo ';">Editar visitas</button>';
+                        
                     }
 
                 ?>

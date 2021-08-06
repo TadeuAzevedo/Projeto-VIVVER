@@ -61,7 +61,7 @@ $resData = mysqli_query($con, $sql);
     </nav>
     <br>
     <br>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <table class="table table-bordered">
@@ -74,6 +74,7 @@ $resData = mysqli_query($con, $sql);
                         <th scope="col">Atividade</th>
                         <th scope="col">Contato Local</th>
                         <th scope="col">Situação</th>
+                        <th scope="col">Enviado</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,7 +92,12 @@ $resData = mysqli_query($con, $sql);
                             }else if($row['situação'] == 2){
                                 echo "<td style='color: #0B0;'>Aprovado</td>";
                             }else if($row['situação'] == 3){
-                                echo "<td style='color: #0B0;'>Reprovado</td>";
+                                echo "<td style='color: #B00;'>Reprovado</td>";
+                            }
+                            if($row['enviado'] == 0){
+                                echo "<td style='color: #B00'>Não</td>";
+                            }else if($row['enviado'] == 1){
+                                echo "<td style='color: #0B0'>Sim</td>";
                             }
                             echo "</tr>";
                         }
