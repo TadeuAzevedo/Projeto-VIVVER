@@ -7,7 +7,7 @@ $user = "SELECT nomeCompleto FROM cadastrocolaborador WHERE id=$id";
 $resultUser = mysqli_query($con,$user);
 $userName = mysqli_fetch_array($resultUser);
 
-$sql = "SELECT * FROM cadastrovisita WHERE nomeColaborador = '".$userName['nomeCompleto']."'";
+$sql = "SELECT * FROM cadastrovisita WHERE nomeColaborador = '".$userName['nomeCompleto']."' AND ativo = 1";
 $result = mysqli_query($con,$sql);
 
 ?>
@@ -58,7 +58,7 @@ $result = mysqli_query($con,$sql);
         </div>
     </nav>
 <br><br>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <table class="table table-bordered">
@@ -70,7 +70,7 @@ $result = mysqli_query($con,$sql);
                         <th scope="col">Data Final</th>
                         <th scope="col">Atividade</th>
                         <th scope="col">Contato Local</th>
-                        <th scope="col">Contato Local</th>
+                        <th scope="col">Situação</th>
                         </tr>
                     </thead>
                     <tbody>

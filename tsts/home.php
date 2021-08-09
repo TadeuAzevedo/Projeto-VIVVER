@@ -169,6 +169,10 @@ include('calendario.php');
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
                         echo "'deleteVisita.php?id=".$id."'";
                         echo ';">Editar visitas</button>';
+                        //Botão 9 - Histórico visitas
+                        echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
+                        echo "'historicovisitas.php?id=".$id."'";
+                        echo ';">Histórico de visitas</button>';
                         
                     }
 

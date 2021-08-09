@@ -5,7 +5,7 @@
     $id = $_GET['id'];
     $idv = $_GET['idv'];
     
-    $sql = "DELETE FROM cadastrovisita WHERE id=$idv";
+    $sql = "UPDATE cadastrovisita SET ativo = 0 WHERE id=$idv";
     $result = mysqli_query($con,$sql);
 
     if($result){

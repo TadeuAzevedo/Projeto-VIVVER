@@ -3,23 +3,6 @@ session_start();
 $id = $_GET['id'];
 
 $con=mysqli_connect("localhost","root","","programacaosemanalteste");
-$result = mysqli_query($con,"SELECT * FROM cadastrovisita");
-
-if (isset($_GET['pageno'])){
-	$pageno = $_GET['pageno'];
-} else {
-	$pageno = 1;
-}
-$numVisitasPag = 6;
-$offset = ($pageno-1) * $numVisitasPag;
-
-$totalPagSql = "SELECT * FROM cadastrovisita";
-$resultPag = mysqli_query($con, $totalPagSql);
-$totalRows = mysqli_fetch_array($resultPag)[0];
-$totalPag = ceil($totalRows / $numVisitasPag);
-
-$sql = "SELECT * FROM cadastrovisita LIMIT $offset, $numVisitasPag";
-$resData = mysqli_query($con, $sql);
 
 ?>
 
@@ -88,7 +71,7 @@ $resData = mysqli_query($con, $sql);
                 </button>
               </div>
               <div class="modal-body">
-                <form name="editVisita" method="POST" action="editVisita.php?id=<?php echo $id?>&idv=<?php echo $idv ?>" autocomplete="off">
+                <form name="modalEditVisita" method="POST" action="editVisita.php?id=<?php echo $id?>&idv=<?php echo $idv ?>" autocomplete="off">
                     <p>
                         <label>Nome:</label>
                         <br>
@@ -109,7 +92,7 @@ $resData = mysqli_query($con, $sql);
                         <label>Local:</label>
                         <br>
                         <?php
-                        $resultIDV = mysqli_query($con, "SELECT id FROM cadastrovisita");
+                        $resultIDV = mysqli_query($con, "SELECT id FROM cadastrovisita WHERE ativo = 1");
                         $rowIDV = mysqli_fetch_array($resultIDV);
                         $idv = $rowIDV['id'];
                         ?>
@@ -140,7 +123,7 @@ $resData = mysqli_query($con, $sql);
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 <a href="editVisita.php"><button type="submit" name="enviar" id="btn" value="Enviar" class="btn btn-primary">Salvar mudanças</button></a>
-                 </form>
+                </form>
               </div>
             </div>
           </div>
@@ -193,7 +176,8 @@ $resData = mysqli_query($con, $sql);
                     </thead>
                     <tbody>
                         <?php
-                        while($row = mysqli_fetch_array($resData)){
+                        $result = mysqli_query($con,"SELECT * FROM cadastrovisita WHERE ativo = 1");
+                        while($row = mysqli_fetch_array($result)){
                             $idv = $row['id'];
                             echo "<tr>";
                             echo "<th scope='row'>". $row['nomeColaborador'] ."</th>";
@@ -202,38 +186,15 @@ $resData = mysqli_query($con, $sql);
                             echo "<td>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
                             echo "<td>". $row['atividade'] ."</td>";
                             echo "<td>". $row['contatoLocal'] ."</td>";
-                            echo "<td style='text-align: center; width: 10%'><a href='#' class='delete' onclick='teste()'><img src='delete.png' style='width: 3vw;'></a>&ensp;&ensp;<a data-target='#modalEdicao' data-toggle='modal' href='#modalEdicao' class='edit'><img src='edit.png' style='width: 3vw;'></a></td>";   
+                            echo "<td style='text-align: center; width: 10%'><a href='deletar.php?id=".$id."&idv=".$idv."' class='delete'><img src='delete.png' style='width: 3vw;'></a>&ensp;&ensp;<a data-target='#modalEdicao' data-toggle='modal' href='#modalEdicao' class='edit'><img src='edit.png' style='width: 3vw;'></a></td>";   
                             echo "</tr>";
+                            
                         }
                         ?>
                     </tbody>
-                    <script>
-                        function teste(){
-                            var x;
-                            var r=confirm("Tem certeza que deseja excluir?");
-                            if (r==true)
-                              {
-                              window.location.href = 'deletar.php?id=<?php echo $id?>&idv=<?php echo $idv ?>';
-                              }
-                            else
-                              {
-                              x="Você pressionou Cancelar!";
-                              }
-                            document.getElementById("demo").innerHTML=x;
-                        }
-        </script>
+                    
                 </table>
-                <ul class="pagination">
-                	
-       			 	<li>
-            			<a href="?id=<?php echo $id?><?php if($pageno <= 1){ echo '#'; } else { echo "&pageno=".($pageno - 1); } ?>">Anterior</a>&ensp;&ensp;
-        			</li>
-
-        			<li>
-            			<a href="?id=<?php echo $id?><?php echo "&pageno=".($pageno + 1); ?>">Próxima</a>
-        			</li>
-        			
-                </ul>
+                
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button>
             </div>
         </div>

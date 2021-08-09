@@ -3,23 +3,8 @@ session_start();
 $id = $_GET['id'];
 
 $con=mysqli_connect("localhost","root","","programacaosemanalteste");
-$result = mysqli_query($con,"SELECT * FROM cadastrovisita");
+$result = mysqli_query($con,"SELECT * FROM cadastrovisita WHERE ativo=1");
 
-if (isset($_GET['pageno'])){
-	$pageno = $_GET['pageno'];
-} else {
-	$pageno = 1;
-}
-$numVisitasPag = 7;
-$offset = ($pageno-1) * $numVisitasPag;
-
-$totalPagSql = "SELECT * FROM cadastrovisita";
-$resultPag = mysqli_query($con, $totalPagSql);
-$totalRows = mysqli_fetch_array($resultPag)[0];
-$totalPag = ceil($totalRows / $numVisitasPag);
-
-$sql = "SELECT * FROM cadastrovisita LIMIT $offset, $numVisitasPag";
-$resData = mysqli_query($con, $sql);
 
 ?>
 
@@ -79,7 +64,7 @@ $resData = mysqli_query($con, $sql);
                     </thead>
                     <tbody>
                         <?php
-                        while($row = mysqli_fetch_array($resData)){
+                        while($row = mysqli_fetch_array($result)){
                             echo "<tr>";
                             echo "<th scope='row'>". $row['nomeColaborador'] ."</th>";
                             echo "<td>". $row['local'] ."</td>";
@@ -104,17 +89,6 @@ $resData = mysqli_query($con, $sql);
                         ?>
                     </tbody>
                 </table>
-                <ul class="pagination">
-                	
-       			 	<li>
-            			<a href="?id=<?php echo $id?><?php if($pageno <= 1){ echo '#'; } else { echo "&pageno=".($pageno - 1); } ?>">Anterior</a>&ensp;&ensp;
-        			</li>
-
-        			<li>
-            			<a href="?id=<?php echo $id?><?php echo "&pageno=".($pageno + 1); ?>">Próxima</a>
-        			</li>
-        			
-                </ul>
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button>
             </div>
         </div>
