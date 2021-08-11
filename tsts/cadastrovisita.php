@@ -62,7 +62,7 @@ if($setor == 2 || $setor == 3){
             <div class="row">
                 <div class="col-12 frm">
                     <div class="meio">
-                        <h1>Cadastro de Visitas</h1>
+                        <h1 style="text-align: center;">Cadastro de Visitas</h1>
                         <br>
                         <form name="cadastroVisita" method="POST" action="visita.php?id='.$id.'">
                             <label for="nome">Nome:</label>
@@ -93,10 +93,27 @@ if($setor == 2 || $setor == 3){
                             <br><br>
                             <label for="cttLocal">Contato local:</label>
                             <br>
-                            <input type="text" name="cttLocal" id="cttLocal" autocomplete="off" required>
+                            <input type="text" name="cttLocal" id="cttLocal" autocomplete="off">
+                            <br><br>
+                            <label for="local">Forma de transporte:</label>
+                            <br>
+                            <select name="txtTransporte" id="txtTransporte">
+                                <option value="Veículo da Empresa">Veículo da Empresa</option>
+                                <option value="Veículo Próprio">Veículo Próprio</option>
+                                <option value="Veículo do Parceiro">Veículo do Parceiro</option>
+                                <option value="Veículo Locado">Veículo Locado</option>
+                                <option value="Ônibus">Ônibus</option>
+                                <option value="Avião">Avião</option>
+                                <option value="Moto Táxi">Moto Táxi</option>
+                                <option value="Táxi/Uber">Táxi/Uber</option>
+                                <option value="Acompanhante em outra AV">Acompanhante em outra AV</option>
+                                <option value="Não utilizado">Não utilizado</option>
+                            </select>
                             <br><br>
                             <label for="atividade">Atividade:</label>
                             <textarea name="txtAtv" id="txtAtv" maxlength="255"></textarea>
+                            <label for="obs">Observações:</label>
+                            <textarea name="txtObs" id="txtObs" maxlength="255"></textarea>
                             <br>
                             <br>
                             <input type="submit" name="enviar" id="btn" value="Cadastrar" required>
@@ -185,4 +202,3 @@ if($setor == 2 || $setor == 3){
     }
 
 ?>
-

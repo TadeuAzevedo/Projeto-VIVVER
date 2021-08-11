@@ -4,7 +4,7 @@ session_start();
 $id = $_GET['id'];
 
 $con = mysqli_connect("localhost", "root", "", "programacaosemanalteste");
-$pessoas = "SELECT * FROM cadastrocolaborador WHERE setor = 1";
+$pessoas = "SELECT * FROM cadastrocolaborador WHERE setor = 1 OR setor = 4";
 $resultPessoas = mysqli_query($con, $pessoas);
 
 date_default_timezone_set('America/Sao_Paulo');
@@ -31,67 +31,87 @@ while($userName = mysqli_fetch_array($resultPessoas)){
 					$paraEmail = $userName['email'];
 					$assunto = "Programação Semanal";
 
+					$headers = "From: Suporte \r\n";
+					$headers .= 'Content-type: text/html;' . "\r\n";
+
 					//Início email
 
 					$body = "
-Boa tarde!
+<html>
+<head>
+	<title>teste</title>
+	<meta charset='utf-8'>
+	<style>
+		*{
+			font-family: arial;
+		}
+	</style>
+</head>
+<body>
+<h2>Boa tarde!</h2>
 
-Segue em anexo a programação dia ".date('d/m',$timestampI)." a ".date('d/m',$timestampF)."
+<p>Segue abaixo a programação dos dias ".date('d/m',$timestampI)." a ".date('d/m',$timestampF)."</p>
 
-Obs: SÓ INICIEM A VIAGEM APÓS O DEPÓSITO DA AV.
+<p><b><mark> SÓ INICIEM A VIAGEM APÓS O DEPÓSITO DA AV.</mark></b></p>
 
-Em amarelo são programações não confirmadas.
+<p><u><b>Em amarelo são programações não confirmadas.</b></u></p>
 
-As viagens em branco estão confirmadas, mas poderemos ter alterações na segunda. Fiquem atentos.
+<p>As viagens em branco estão confirmadas, mas poderemos ter alterações na segunda. Fiquem atentos.</p>
 
-Qualquer incoerência na programação, entre em contato o mais rápido possível!
+<p><b>Qualquer incoerência na programação, entre em contato o mais rápido possível!</b></p>
 
-Recomendações e solicitações:
-0) Todas as solicitações devem ser direcionadas ao suporte. No caso de urgência (envolvendo produção ou processos de implantação) deve-se mencionar a situação.
+<p>Recomendações e solicitações: <br>
+0) Todas as solicitações devem ser direcionadas ao suporte. No caso de urgência (envolvendo produção ou processos de implantação) deve-se mencionar a situação.</p>
 
-1) Existem diversas Demandas semanais sem o correto preenchimento e finalização. Por favor, é uma obrigação de todos informar o que foi executado no cliente.
+<p>1) Existem diversas Demandas semanais sem o correto preenchimento e finalização. Por favor, é uma obrigação de todos informar o que foi executado no cliente.</p>
 
-2) Segue abaixo o modelo para abertura de demandas. Por favor sigam este modelo.
+<p>2) Segue abaixo o modelo para abertura de demandas. Por favor sigam este modelo.</p>
 
-2.1) Devem seguir o padrão abaixo:
+<p>2.1) Devem seguir o padrão abaixo:</p>
 
-Título: [Município-UF] [Módulo] Breve relato da solicitação (Colchetes devem ser utilizados para facilitar a busca)
+<p>Título: [Município-UF] [Módulo] Breve relato da solicitação (Colchetes devem ser utilizados para facilitar a busca)</p>
 
-*Município:* Nome do município
-*Modulo:* Módulo que apresenta o incidente
-*Versão:* Versão disponível na tela de login do acesso web e na opção 'Sobre' dentro dos módulos Delphi. Ex: prd_7724
-*Caminho:* Caminho para executar os dados inseridos para teste
+<p><b>Município:</b> Nome do município <br>
+<b>Modulo:</b> Módulo que apresenta o incidente <br>
+<b>Versão:</b> Versão disponível na tela de login do acesso web e na opção 'Sobre' dentro dos módulos Delphi. Ex: prd_7724 <br>
+<b>Caminho:</b> Caminho para executar os dados inseridos para teste</p>
 
-*Tipo:* Escolha uma das relacionadas a seguir:
-Incidente (Erro/Impedimento de executar operação)
-Melhoria (Customização de tela/Alteração de funcionalidade já em funcionamento)
-Pedido de Serviço (Atividade executada via banco de dados para remoção/inserção/alteração devido a erro humano ou incidentes ocorridos)
-*Descrição:* Relato do ocorrido, testes realizados, soluções propostas e possíveis diagnósticos
+<p><b>Tipo:</b> Escolha uma das relacionadas a seguir: <br>
+Incidente (Erro/Impedimento de executar operação) <br>
+Melhoria (Customização de tela/Alteração de funcionalidade já em funcionamento) <br> 
+Pedido de Serviço (Atividade executada via banco de dados para remoção/inserção/alteração devido a erro humano ou incidentes ocorridos) <br>
+<b>Descrição:</b> Relato do ocorrido, testes realizados, soluções propostas e possíveis diagnósticos</p>
 
-*Dados para teste:*
-Todos os dados necessários para que seja realizado a execução do erro/problema relatado
-Ex: Unidade, setor, prontuário, registro de atendimento/recepção, entre outros.
+<p><b>Dados para teste:</b> <br>
+Todos os dados necessários para que seja realizado a execução do erro/problema relatado <br>
+Ex: Unidade, setor, prontuário, registro de atendimento/recepção, entre outros.</p>
 
-*Contato:* Nome do responsável
-*Telefone:* Número de telefone escrito no seguinte padrão: (XX) X XXXX-XXXX
+<p><b>Contato:</b> Nome do responsável <br>
+<b>Telefone:</b> Número de telefone escrito no seguinte padrão: (XX) X XXXX-XXXX</p>
 
-2.2) Demandas de melhoria sem o correto preenchimento de solicitação de orçamento de melhoria com assinatura do gestor do contrato/ secretário de saúde serão devolvidas pelo suporte. Será preciso formalizar tal demanda.
+<p>2.2) Demandas de melhoria sem o correto preenchimento de solicitação de orçamento de melhoria com assinatura do gestor do contrato/ secretário de saúde serão devolvidas pelo suporte. Será preciso formalizar tal demanda.</p>
 
-3) Relembro que qualquer modificação desta programação deve ser comunicada imediatamente (preferencialmente antes de acontecer).
+<p><b><mark>3) Relembro que qualquer modificação desta programação deve ser comunicada imediatamente (preferencialmente antes de acontecer).</mark></b></p>
 
-Qualquer dúvida estamos à disposição
+<p>Qualquer dúvida estamos à disposição</p>
 
-PROGRAMAÇÃO:
-Período: ".date('d/m',$timestampI)." a ".date('d/m',$timestampF)."
-Atividade: ".$row['atividade']."
-Implantador: ".$row['nomeColaborador']."
-Local da Atividade: ".$row['local']."
-Contato local: ".$row['contatoLocal']."
+<h3>PROGRAMAÇÃO:</h3>
+<p><b>Período:</b> ".date('d/m',$timestampI)." a ".date('d/m',$timestampF)." <br>
+<b>Atividade:</b> ".$row['atividade']." <br>
+<b>Implantador:</b> ".$row['nomeColaborador']." <br>
+<b>Local da Atividade:</b> ".$row['local']." <br>
+<b>Contato local:</b> ".$row['contatoLocal']." <br>
+<b>Transporte:</b> ".$row['transporte']." <br>
+<b>Observações:</b>".$row['observacoes']."
+</p>
+
+</body>
+</html>
 					";
 
 					//Fim email
 
-					if (mail($paraEmail, $assunto, $body)) {
+					if (mail($paraEmail, $assunto, $body,$headers)) {
 			    		echo "<script>setTimeout(function(){ alert('Email enviado com sucesso!'); window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
 			    		$update = mysqli_query($con, "UPDATE cadastrovisita SET enviado='1' WHERE id=$idv");
 					} else {

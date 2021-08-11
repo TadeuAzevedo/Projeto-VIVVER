@@ -5,6 +5,13 @@ $id = $_GET['id'];
 $con=mysqli_connect("localhost","root","","programacaosemanalteste");
 $result = mysqli_query($con,"SELECT * FROM cadastrovisita WHERE ativo=1");
 
+date_default_timezone_set('America/Sao_Paulo');
+$hoje = date("Y-m-d");
+
+$dataInicial = strtotime("Friday");
+$dataFinal = strtotime("+7 days", $dataInicial);
+$dataInicialS = date("Y-m-d", $dataInicial);
+$dataFinalS = date("Y-m-d", $dataFinal);
 
 ?>
 
@@ -58,6 +65,7 @@ $result = mysqli_query($con,"SELECT * FROM cadastrovisita WHERE ativo=1");
                         <th scope="col">Data Final</th>
                         <th scope="col">Atividade</th>
                         <th scope="col">Contato Local</th>
+                        <th scope="col">Transporte</th>
                         <th scope="col">Situação</th>
                         <th scope="col">Enviado</th>
                         </tr>
@@ -65,26 +73,29 @@ $result = mysqli_query($con,"SELECT * FROM cadastrovisita WHERE ativo=1");
                     <tbody>
                         <?php
                         while($row = mysqli_fetch_array($result)){
-                            echo "<tr>";
-                            echo "<th scope='row'>". $row['nomeColaborador'] ."</th>";
-                            echo "<td>". $row['local'] ."</td>";
-                            echo "<td>". date('d-m-Y', strtotime( $row['periodoInicial'])) ."</td>";
-                            echo "<td>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
-                            echo "<td>". $row['atividade'] ."</td>";
-                            echo "<td>". $row['contatoLocal'] ."</td>";
-                            if($row['situação'] == 1){
-                                echo "<td>Pendente</td>";
-                            }else if($row['situação'] == 2){
-                                echo "<td style='color: #0B0;'>Aprovado</td>";
-                            }else if($row['situação'] == 3){
-                                echo "<td style='color: #B00;'>Reprovado</td>";
+                            if($row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] <= $dataFinalS){
+                                echo "<tr>";
+                                echo "<th scope='row'>". $row['nomeColaborador'] ."</th>";
+                                echo "<td>". $row['local'] ."</td>";
+                                echo "<td>". date('d-m-Y', strtotime( $row['periodoInicial'])) ."</td>";
+                                echo "<td>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
+                                echo "<td>". $row['atividade'] ."</td>";
+                                echo "<td>". $row['contatoLocal'] ."</td>";
+                                echo "<td>". $row['transporte'] ."</td>";
+                                if($row['situação'] == 1){
+                                    echo "<td>Pendente</td>";
+                                }else if($row['situação'] == 2){
+                                    echo "<td style='color: #0B0;'>Aprovado</td>";
+                                }else if($row['situação'] == 3){
+                                    echo "<td style='color: #B00;'>Reprovado</td>";
+                                }
+                                if($row['enviado'] == 0){
+                                    echo "<td style='color: #B00'>Não</td>";
+                                }else if($row['enviado'] == 1){
+                                    echo "<td style='color: #0B0'>Sim</td>";
+                                }
+                                echo "</tr>";
                             }
-                            if($row['enviado'] == 0){
-                                echo "<td style='color: #B00'>Não</td>";
-                            }else if($row['enviado'] == 1){
-                                echo "<td style='color: #0B0'>Sim</td>";
-                            }
-                            echo "</tr>";
                         }
                         ?>
                     </tbody>

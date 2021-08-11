@@ -152,7 +152,7 @@ include('calendario.php');
                         //Botão 4 - Ver todas visitas cadastradas
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
                         echo "'tabelavisita.php?id=".$id."'";
-                        echo ';">Todas visitas cadastradas</button>';
+                        echo ';">Visitas referentes à semana seguinte</button>';
                         //Botão 5 - Ver todos colaboradores cadastrados
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
                         echo "'tabelacolaborador.php?id=".$id."'";

@@ -91,11 +91,11 @@ $con=mysqli_connect("localhost","root","","programacaosemanalteste");
                     <p>
                         <label>Local:</label>
                         <br>
-                        <?php
-                        $resultIDV = mysqli_query($con, "SELECT id FROM cadastrovisita WHERE ativo = 1");
-                        $rowIDV = mysqli_fetch_array($resultIDV);
-                        $idv = $rowIDV['id'];
-                        ?>
+                        <!--<?//php
+                        //$resultIDV = mysqli_query($con, "SELECT id FROM cadastrovisita WHERE ativo = 1");
+                        //$rowIDV = mysqli_fetch_array($resultIDV);
+                        //$idv = $rowIDV['id'];
+                        //?>-->
                         <input type="text" name="txtLocal" autocomplete="off" required>
                     </p>
                     <p>
@@ -171,6 +171,7 @@ $con=mysqli_connect("localhost","root","","programacaosemanalteste");
                         <th scope="col">Data Final</th>
                         <th scope="col">Atividade</th>
                         <th scope="col">Contato Local</th>
+                        <th scope="col">Situação</th>
                         <th scope="col">Ações</th>
                         </tr>
                     </thead>
@@ -186,6 +187,13 @@ $con=mysqli_connect("localhost","root","","programacaosemanalteste");
                             echo "<td>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
                             echo "<td>". $row['atividade'] ."</td>";
                             echo "<td>". $row['contatoLocal'] ."</td>";
+                            if($row['situação'] == 1){
+                                    echo "<td>Pendente</td>";
+                                }else if($row['situação'] == 2){
+                                    echo "<td style='color: #0B0;'>Aprovado</td>";
+                                }else if($row['situação'] == 3){
+                                    echo "<td style='color: #B00;'>Reprovado</td>";
+                                }
                             echo "<td style='text-align: center; width: 10%'><a href='deletar.php?id=".$id."&idv=".$idv."' class='delete'><img src='delete.png' style='width: 3vw;'></a>&ensp;&ensp;<a data-target='#modalEdicao' data-toggle='modal' href='#modalEdicao' class='edit'><img src='edit.png' style='width: 3vw;'></a></td>";   
                             echo "</tr>";
                             
