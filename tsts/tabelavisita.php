@@ -100,7 +100,20 @@ $dataFinalS = date("Y-m-d", $dataFinal);
                         ?>
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button><br>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'gerarXML.php?id=<?php echo $id?>';">Gerar arquivo XML</button>
+            </div>
+            <div class="col-6">
+                <?php
+                    $arquivo = 'visitas_semanais.xml';
+                    if(file_exists($arquivo)){
+                        echo '<a href="visitas_semanais.xml" download><button class="btn btn-primary btn-lg btn-block">Baixar arquivo XML</button></a>';
+                    }else{
+                        echo '<a href="visitas_semanais.xml" download><button class="btn btn-primary btn-lg btn-block" disabled>Baixar arquivo XML</button></a>';
+                    }
+                ?>
             </div>
         </div>
     </div>

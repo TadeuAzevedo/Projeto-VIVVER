@@ -54,11 +54,17 @@ while($userName = mysqli_fetch_array($resultPessoas)){
 
 <p><b><mark> SÓ INICIEM A VIAGEM APÓS O DEPÓSITO DA AV.</mark></b></p>
 
-<p><u><b>Em amarelo são programações não confirmadas.</b></u></p>
-
-<p>As viagens em branco estão confirmadas, mas poderemos ter alterações na segunda. Fiquem atentos.</p>
-
 <p><b>Qualquer incoerência na programação, entre em contato o mais rápido possível!</b></p>
+
+<h3><b>PROGRAMAÇÃO:</b></h3>
+<p><b>Período:</b> ".date('d/m',$timestampI)." a ".date('d/m',$timestampF)." <br>
+<b>Atividade:</b> ".$row['atividade']." <br>
+<b>Implantador:</b> ".$row['nomeColaborador']." <br>
+<b>Local da Atividade:</b> ".$row['local']." <br>
+<b>Contato local:</b> ".$row['contatoLocal']." <br>
+<b>Transporte:</b> ".$row['transporte']." <br>
+<b>Observações:</b>".$row['observacoes']."
+</p>
 
 <p>Recomendações e solicitações: <br>
 0) Todas as solicitações devem ser direcionadas ao suporte. No caso de urgência (envolvendo produção ou processos de implantação) deve-se mencionar a situação.</p>
@@ -94,16 +100,6 @@ Ex: Unidade, setor, prontuário, registro de atendimento/recepção, entre outro
 <p><b><mark>3) Relembro que qualquer modificação desta programação deve ser comunicada imediatamente (preferencialmente antes de acontecer).</mark></b></p>
 
 <p>Qualquer dúvida estamos à disposição</p>
-
-<h3>PROGRAMAÇÃO:</h3>
-<p><b>Período:</b> ".date('d/m',$timestampI)." a ".date('d/m',$timestampF)." <br>
-<b>Atividade:</b> ".$row['atividade']." <br>
-<b>Implantador:</b> ".$row['nomeColaborador']." <br>
-<b>Local da Atividade:</b> ".$row['local']." <br>
-<b>Contato local:</b> ".$row['contatoLocal']." <br>
-<b>Transporte:</b> ".$row['transporte']." <br>
-<b>Observações:</b>".$row['observacoes']."
-</p>
 
 </body>
 </html>
