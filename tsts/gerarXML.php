@@ -6,9 +6,11 @@ $dataInicial = strtotime("Friday");
 $dataFinal = strtotime("+7 days", $dataInicial);
 $dataInicialS = date("Y-m-d", $dataInicial);
 $dataFinalS = date("Y-m-d", $dataFinal);
+$dataIXML = date("d-m", $dataInicial);
+$dataFXML = date("d-m", $dataFinal);
 
 $con=mysqli_connect("localhost","root","","programacaosemanalteste");
-$sql = "SELECT * FROM cadastrovisita WHERE ativo=1";
+$sql = "SELECT * FROM cadastrovisita WHERE ativo=1 AND prioridade = 0";
 $array = array();
 
 if($result = mysqli_query($con, $sql)){
@@ -24,7 +26,12 @@ if($result = mysqli_query($con, $sql)){
 }
 
 function createXMLfile($array){
-	$caminho = 'visitas_semanais.xml';
+	$dataInicial = strtotime("Friday");
+	$dataFinal = strtotime("+7 days", $dataInicial);
+	$dataIXML = date("d-m", $dataInicial);
+	$dataFXML = date("d-m", $dataFinal);
+
+	$caminho = "arquivosXML/visitas_semanais_".$dataIXML."_".$dataFXML.".xml";
 	$dom = new DOMDocument('1.0','utf-8');
 	$root = $dom->createElement('visitas');
 	for($i = 0; $i < count($array); $i++){

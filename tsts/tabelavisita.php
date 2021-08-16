@@ -3,7 +3,7 @@ session_start();
 $id = $_GET['id'];
 
 $con=mysqli_connect("localhost","root","","programacaosemanalteste");
-$result = mysqli_query($con,"SELECT * FROM cadastrovisita WHERE ativo=1");
+$result = mysqli_query($con,"SELECT * FROM cadastrovisita WHERE ativo=1 AND prioridade = 0");
 
 date_default_timezone_set('America/Sao_Paulo');
 $hoje = date("Y-m-d");
@@ -107,9 +107,11 @@ $dataFinalS = date("Y-m-d", $dataFinal);
             </div>
             <div class="col-6">
                 <?php
-                    $arquivo = 'visitas_semanais.xml';
+                    $dataIXML = date("d-m", $dataInicial);
+                    $dataFXML = date("d-m", $dataFinal);
+                    $arquivo = "arquivosXML/visitas_semanais_".$dataIXML."_".$dataFXML.".xml";
                     if(file_exists($arquivo)){
-                        echo '<a href="visitas_semanais.xml" download><button class="btn btn-primary btn-lg btn-block">Baixar arquivo XML</button></a>';
+                        echo '<a href="arquivosXML/visitas_semanais_'.$dataIXML.'_'.$dataFXML.'.xml" download><button class="btn btn-primary btn-lg btn-block">Baixar arquivo XML</button></a>';
                     }else{
                         echo '<a href="visitas_semanais.xml" download><button class="btn btn-primary btn-lg btn-block" disabled>Baixar arquivo XML</button></a>';
                     }

@@ -23,6 +23,8 @@ while($userName = mysqli_fetch_array($resultPessoas)){
 		if($row['ativo'] == 1){
 			if($row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] <= $dataFinalS){
 				if($row['enviado'] == 0 && $row['situação'] == 2){
+					$i = 0;
+
 					$stringI = $row['periodoInicial'];
 					$timestampI = strtotime($stringI);
 					$stringF = $row['periodoFinal'];
@@ -107,17 +109,18 @@ Ex: Unidade, setor, prontuário, registro de atendimento/recepção, entre outro
 
 					//Fim email
 
-					if (mail($paraEmail, $assunto, $body,$headers)) {
+					if (mail($paraEmail, $assunto, $body, $headers)) {
+						$i = $i + 1;
 			    		echo "<script>setTimeout(function(){ alert('Email enviado com sucesso!'); window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
 			    		$update = mysqli_query($con, "UPDATE cadastrovisita SET enviado='1' WHERE id=$idv");
-					} else {
+					}else {
 			    		echo "<script>setTimeout(function(){ alert('Falha ao enviar!'); window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
 					}
 				}else{
 					echo "<script>setTimeout(function(){ alert('Todos emails já foram enviados!'); window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
 				}
 			}else{
-				echo "<script>setTimeout(function(){ alert('Todos emails já foram enviados!'); window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
+				echo "<script>setTimeout(function(){ alert('Visita fora do período!'); window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
 			}
 		}else{
 			echo "<script>setTimeout(function(){ alert('Visita inativa'); window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
