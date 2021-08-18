@@ -64,7 +64,6 @@ $dataFinalS = date("Y-m-d", $dataFinal);
                         <th scope="col">Data Inicial</th>
                         <th scope="col">Data Final</th>
                         <th scope="col">Atividade</th>
-                        <th scope="col">Contato Local</th>
                         <th scope="col">Transporte</th>
                         <th scope="col">Situação</th>
                         <th scope="col">Enviado</th>
@@ -73,14 +72,15 @@ $dataFinalS = date("Y-m-d", $dataFinal);
                     <tbody>
                         <?php
                         while($row = mysqli_fetch_array($result)){
-                            if($row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] <= $dataFinalS){
+                            $query1 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] <= $dataFinalS;
+                            $query2 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] > $dataFinalS;
+                            if($query1 || $query2){
                                 echo "<tr>";
                                 echo "<th scope='row'>". $row['nomeColaborador'] ."</th>";
                                 echo "<td>". $row['local'] ."</td>";
                                 echo "<td>". date('d-m-Y', strtotime( $row['periodoInicial'])) ."</td>";
                                 echo "<td>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
                                 echo "<td>". $row['atividade'] ."</td>";
-                                echo "<td>". $row['contatoLocal'] ."</td>";
                                 echo "<td>". $row['transporte'] ."</td>";
                                 if($row['situação'] == 1){
                                     echo "<td>Pendente</td>";

@@ -91,10 +91,6 @@ if($setor == 2 || $setor == 3){
                             <br>
                             <input type="date" name="dtFinal" id="dtFinal" required>
                             <br><br>
-                            <label for="cttLocal">Contato local:</label>
-                            <br>
-                            <input type="text" name="cttLocal" id="cttLocal" autocomplete="off">
-                            <br><br>
                             <label for="local">Forma de transporte:</label>
                             <br>
                             <select name="txtTransporte" id="txtTransporte">

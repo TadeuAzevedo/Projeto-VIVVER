@@ -9,7 +9,6 @@
     $dtInicial = $_POST['dtInicial'];
     $dtFinal = $_POST['dtFinal'];
     $txtAtv = $_POST['txtAtv'];
-    $cttLocal = $_POST['cttLocal'];
     $txtTransporte = $_POST['txtTransporte'];
     $txtObs = $_POST['txtObs'];
 
@@ -17,7 +16,7 @@
         echo "<script>setTimeout(function(){ alert('Data inicial não pode ser maior que data final'); voltar();}, 1000);</script>";
     }else {
 
-    $sql = "INSERT INTO `cadastrovisita` (`nomeColaborador`,`local`,`periodoInicial`,`periodoFinal`,`atividade`,`contatoLocal`,`situação`,`enviado`, `ativo`, `transporte`, `observacoes`)VALUES ('$txtNome','$txtLocal','$dtInicial','$dtFinal','$txtAtv','$cttLocal','1','0','1', '$txtTransporte', '$txtObs');";
+    $sql = "INSERT INTO `cadastrovisita` (`nomeColaborador`,`local`,`periodoInicial`,`periodoFinal`,`atividade`,`situação`,`enviado`, `ativo`, `transporte`, `observacoes`)VALUES ('$txtNome','$txtLocal','$dtInicial','$dtFinal','$txtAtv','1','0','1', '$txtTransporte', '$txtObs');";
     
     $rs = mysqli_query($con, $sql);
 

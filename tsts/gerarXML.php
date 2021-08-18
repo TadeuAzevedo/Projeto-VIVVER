@@ -15,7 +15,9 @@ $array = array();
 
 if($result = mysqli_query($con, $sql)){
 	while($row = mysqli_fetch_assoc($result)){
-		if($row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] <= $dataFinalS){
+		$query1 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] <= $dataFinalS;
+		$query2 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] > $dataFinalS;
+		if($query1 || $query2){
 			array_push($array, $row);
 		}
 	}
@@ -40,7 +42,6 @@ function createXMLfile($array){
 		$local = $array [$i]['local'];
 		$dataI = $array [$i]['periodoInicial'];
 		$dataF = $array [$i]['periodoFinal'];
-		$contato = $array [$i]['contatoLocal'];
 		$transporte = $array [$i]['transporte'];
 		$atividade = $array [$i]['atividade'];
 		$observacoes = $array [$i]['observacoes'];
@@ -55,8 +56,6 @@ function createXMLfile($array){
 		$visita->appendChild($dataIV);
 		$dataFV = $dom->createElement('DataFinal', $dataF);
 		$visita->appendChild($dataFV);
-		$contatoV = $dom->createElement('Contato', $contato);
-		$visita->appendChild($contatoV);
 		$transporteV = $dom->createElement('Transporte', $transporte);
 		$visita->appendChild($transporteV);
 		$atividadeV = $dom->createElement('Atividade', $atividade);

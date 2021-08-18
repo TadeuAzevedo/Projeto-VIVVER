@@ -72,7 +72,6 @@ $result = mysqli_query($con, $sql);
                         <th scope="col">Data Inicial</th>
                         <th scope="col">Data Final</th>
                         <th scope="col">Atividade</th>
-                        <th scope="col">Contato Local</th>
                         <th scope="col">Transporte</th>
                         <th scope="col">Situação</th>
                         </tr>
@@ -87,7 +86,6 @@ $result = mysqli_query($con, $sql);
                             echo "<td>". date('d-m-Y', strtotime( $row['periodoInicial'])) ."</td>";
                             echo "<td>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
                             echo "<td>". $row['atividade'] ."</td>";
-                            echo "<td>". $row['contatoLocal'] ."</td>";
                             echo "<td>". $row['transporte']. "</td>";
                             echo "<td style='text-align: center;margin: 0;'><a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=2&prioridade=1'><img src='prioritario.png' width='40vw' class='img'></a>&ensp;<a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=2&prioridade=0'><img src='aprovado_cheio.png' width='40vw' class='img'></a>&ensp;<a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=3&prioridade=3'><img src='reprovado_cheio.png' width='40vw' class='img'></a></td>";
                             echo "</tr>";
@@ -95,7 +93,7 @@ $result = mysqli_query($con, $sql);
                         ?>
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button><br>
                 
             </div>
         </div>

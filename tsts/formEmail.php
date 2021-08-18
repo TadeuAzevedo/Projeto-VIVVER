@@ -21,7 +21,9 @@ while($userName = mysqli_fetch_array($resultPessoas)){
 	while($row = mysqli_fetch_array($result)){
 		$idv = $row['id'];
 		if($row['ativo'] == 1){
-			if($row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] <= $dataFinalS){
+			$query1 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] <= $dataFinalS;
+			$query2 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] > $dataFinalS;
+			if($query1 || $query2){
 				if($row['enviado'] == 0 && $row['situação'] == 2){
 					$i = 0;
 
@@ -63,7 +65,6 @@ while($userName = mysqli_fetch_array($resultPessoas)){
 <b>Atividade:</b> ".$row['atividade']." <br>
 <b>Implantador:</b> ".$row['nomeColaborador']." <br>
 <b>Local da Atividade:</b> ".$row['local']." <br>
-<b>Contato local:</b> ".$row['contatoLocal']." <br>
 <b>Transporte:</b> ".$row['transporte']." <br>
 <b>Observações:</b>".$row['observacoes']."
 </p>

@@ -69,7 +69,6 @@ $result = mysqli_query($con,$sql);
                         <th scope="col">Data Inicial</th>
                         <th scope="col">Data Final</th>
                         <th scope="col">Atividade</th>
-                        <th scope="col">Contato Local</th>
                         <th scope="col">Situação</th>
                         </tr>
                     </thead>
@@ -82,7 +81,6 @@ $result = mysqli_query($con,$sql);
                             echo "<td>". date('d-m-Y', strtotime( $row['periodoInicial'])) ."</td>";
                             echo "<td>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
                             echo "<td>". $row['atividade'] ."</td>";
-                            echo "<td>". $row['contatoLocal'] ."</td>";
                             if($row['situação'] == 1){
                                 echo "<td>Pendente</td>";
                             }else if($row['situação'] == 2){
