@@ -57,6 +57,9 @@ $con=mysqli_connect("localhost","root","","programacaosemanalteste");
                 cursor: text;
                 border-bottom: 1px solid black;
             }
+            .atv{
+                width: 35vw;
+            }
         </style>
     </head>
     <body>
@@ -184,7 +187,7 @@ $con=mysqli_connect("localhost","root","","programacaosemanalteste");
                             echo "<td>". $row['local'] ."</td>";
                             echo "<td>". date('d-m-Y', strtotime( $row['periodoInicial'])) ."</td>";
                             echo "<td>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
-                            echo "<td>". $row['atividade'] ."</td>";
+                            echo "<td class='atv'>". $row['atividade'] ."</td>";
                             if($row['situação'] == 1){
                                     echo "<td>Pendente</td>";
                                 }else if($row['situação'] == 2){

@@ -25,6 +25,12 @@ $result = mysqli_query($con, $sql);
     	.img:hover{
     		opacity: 0.5;
     	}
+        .sit{
+            width: 15vw;
+        }
+        .atv{
+            width: 35vw;
+        }
     </style>
     <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
     <title>Visitas do Usuário</title>
@@ -85,9 +91,9 @@ $result = mysqli_query($con, $sql);
                             echo "<td>". $row['local'] ."</td>";
                             echo "<td>". date('d-m-Y', strtotime( $row['periodoInicial'])) ."</td>";
                             echo "<td>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
-                            echo "<td>". $row['atividade'] ."</td>";
+                            echo "<td class='atv'>". $row['atividade'] ."</td>";
                             echo "<td>". $row['transporte']. "</td>";
-                            echo "<td style='text-align: center;margin: 0;'><a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=2&prioridade=1'><img src='prioritario.png' width='40vw' class='img'></a>&ensp;<a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=2&prioridade=0'><img src='aprovado_cheio.png' width='40vw' class='img'></a>&ensp;<a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=3&prioridade=3'><img src='reprovado_cheio.png' width='40vw' class='img'></a></td>";
+                            echo "<td class='sit' style='text-align: center;margin: 0;'><a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=2&prioridade=1'><img src='prioritario.png' width='40vw' class='img'></a>&ensp;<a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=2&prioridade=0'><img src='aprovado_cheio.png' width='40vw' class='img'></a>&ensp;<a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=3&prioridade=3'><img src='reprovado_cheio.png' width='40vw' class='img'></a></td>";
                             echo "</tr>";
                         }
                         ?>
