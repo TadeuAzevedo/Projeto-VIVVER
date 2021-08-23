@@ -1,9 +1,9 @@
 <?php
-// including database connection
+
 $conn = mysqli_connect('localhost', 'root', '', 'programacaosemanalteste');
 
 if(isset($_GET['page'])){
-    // if get page number through url and check it is a valid number
+
     $page_num = filter_var($_GET['page'], FILTER_VALIDATE_INT,[
         'options' => [
             'default' => 1,
@@ -12,79 +12,71 @@ if(isset($_GET['page'])){
     ]); 
     
 }else{
-    //default page number
+
     $page_num = 1;
 }
-// set how much show posts in a single page
+
 $page_limit = 8;
-// Set Offset
+
 $page_offset = $page_limit * ($page_num - 1);
 
-function showPosts($conn, $current_page_num, $page_limit, $page_offset){
+function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
     
-    // query of fetching posts
     $query = mysqli_query($conn,"SELECT * FROM `cadastrovisita` ORDER BY id LIMIT $page_limit OFFSET $page_offset");
     
-    // check database is not empty
     if(mysqli_num_rows($query) > 0){
-        
-        // fetching data
+
         while($row = mysqli_fetch_array($query)){ 
             echo "<tr>";
-                            echo "<th scope='row' class='nome'>". $row['nomeColaborador'] ."</th>";
-                            echo "<td class='local'>". $row['local'] ."</td>";
-                            echo "<td class='data'>". date('d-m-Y', strtotime( $row['periodoInicial'])) ."</td>";
-                            echo "<td class='data'>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
-                            echo "<td class='atv'>". $row['atividade'] ."</td>";
-                            if($row['situação'] == 1){
-                                echo "<td class='sit'>Pendente</td>";
-                            }else if($row['situação'] == 2){
-                                echo "<td style='color: #0B0;' class='sit'>Aprovado</td>";
-                            }else if($row['situação'] == 3){
-                                echo "<td style='color: #B00;' class='sit'>Reprovado</td>";
-                            }
-                            if($row['enviado'] == 0){
-                                echo "<td style='color: #B00' class='env'>Não</td>";
-                            }else if($row['enviado'] == 1){
-                                echo "<td style='color: #0B0' class='env'>Sim</td>";
-                            }
-                            if($row['ativo'] == 1){
-                                echo "<td style='color: #0B0;' class='ativo'>Sim</td>";
-                            }else if($row['ativo'] == 0){
-                                echo "<td style='color: #B00' class='ativo'>Não</td>";
-                            }
-                            echo "</tr>";
+                echo "<th scope='row' class='nome'>". $row['nomeColaborador'] ."</th>";
+                echo "<td class='local'>". $row['local'] ."</td>";
+                echo "<td class='data'>". date('d-m-Y', strtotime( $row['periodoInicial'])) ."</td>";
+                echo "<td class='data'>". date('d-m-Y', strtotime( $row['periodoFinal'])) ."</td>";
+                echo "<td class='atv'>". $row['atividade'] ."</td>";
+                if($row['situação'] == 1){
+                    echo "<td class='sit'>Pendente</td>";
+                }else if($row['situação'] == 2){
+                    echo "<td style='color: #0B0;' class='sit'>Aprovado</td>";
+                }else if($row['situação'] == 3){
+                    echo "<td style='color: #B00;' class='sit'>Reprovado</td>";
+                }
+                if($row['enviado'] == 0){
+                    echo "<td style='color: #B00' class='env'>Não</td>";
+                }else if($row['enviado'] == 1){
+                    echo "<td style='color: #0B0' class='env'>Sim</td>";
+                }
+                if($row['ativo'] == 1){
+                    echo "<td style='color: #0B0;' class='ativo'>Sim</td>";
+                }else if($row['ativo'] == 0){
+                    echo "<td style='color: #B00' class='ativo'>Não</td>";
+                }
+            echo "</tr>";
         }
-        
-        // total number of posts
+
         $total_posts = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM `cadastrovisita`"));
-        
-        // total number of pages
+
         $total_page = ceil($total_posts / $page_limit);
-        // set next page number
+
         $next_page = $current_page_num+1; 
-        // set prev page number
+
         $prev_page = $current_page_num-1; 
         
-       
-        //showing prev button and check current page number is greater than 1
+
+        echo "<li class='paginas'>";
         if($current_page_num > 1){
-           echo '<a href="?page='.$prev_page.'" class="page_link">Anterior</a>';
+           echo '<br><a href="?page='.$prev_page.'" class="page_link">Anterior</a>';
         }
-        // show all number of pages
         for($i = 1; $i <= $total_page; $i++){
-            //highlight the current page number
             if($i == $current_page_num){
                 echo '<a href="?page='.$i.'" class="page_link active_page">'.$i.'</a>';
             }else{
                 echo '<a href="?page='.$i.'" class="page_link">'.$i.'</a>';
-            }
-            
+            }   
         }
-        // showing next button and check this is last page
         if($total_page+1 != $next_page){
            echo '<a href="?page='.$next_page.'" class="page_link">Próxima</a>';
-        }        
+        }
+        echo "</li>";
     }else{
         echo "Sem visitas cadastradas";
     }
@@ -94,14 +86,8 @@ function showPosts($conn, $current_page_num, $page_limit, $page_offset){
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-        
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
-        <style>
-            .atv{
-                width: 35vw;
-            }
-        </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
     <title>PHP pagination</title>
     <style>
         .page_link{
@@ -113,11 +99,21 @@ function showPosts($conn, $current_page_num, $page_limit, $page_offset){
             text-decoration: none;
             cursor: pointer;
         }
+        .page_link:hover{
+        	background: #007bff;
+        	text-decoration: none;
+        	color: #fff
+        }
         .active_page{
-            background-color:dodgerblue;
+            background-color:#007bff;
             color: #FFF;
             outline: none;
             border: 1px solid rgba(0,0,0,.1);
+        }
+        .paginas{
+        	position: absolute;
+        	bottom: -5vh;
+        	list-style-type: none;: 
         }
         .data{
         	width: 107px;
@@ -149,16 +145,16 @@ function showPosts($conn, $current_page_num, $page_limit, $page_offset){
         <a class="navbar-brand" href="home.php?id=<?php echo $id ?>">
             <img src="teste.png" width="150em" class="d-inline-block align-top" alt="">
         </a>
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="home.php?id=<?php echo $id ?>">Início</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="https://www.vivver.com.br/">Site oficial</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="voltar()">Voltar</a>
-                </li>
+        <ul class="navbar-nav mr-auto">
+        	<li class="nav-item">
+                <a class="nav-link" href="home.php?id=<?php echo $id ?>">Início</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" target="_blank" href="https://www.vivver.com.br/">Site oficial</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="voltar()">Voltar</a>
+            </li>
         </ul>
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
@@ -178,27 +174,27 @@ function showPosts($conn, $current_page_num, $page_limit, $page_offset){
     			<table class="table table-bordered">
     				<thead class="thead-dark">
                         <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Local</th>
-                        <th scope="col">Data Inicial</th>
-                        <th scope="col">Data Final</th>
-                        <th scope="col">Atividade</th>
-                        <th scope="col">Situação</th>
-                        <th scope="col">Enviado</th>
-                        <th scope="col">Ativo</th>
+	                        <th scope="col">Nome</th>
+	                        <th scope="col">Local</th>
+	                        <th scope="col">Data Inicial</th>
+	                        <th scope="col">Data Final</th>
+	                        <th scope="col">Atividade</th>
+	                        <th scope="col">Situação</th>
+	                        <th scope="col">Enviado</th>
+	                        <th scope="col">Ativo</th>
                         </tr>
                     </thead>
                     <tbody>
 				        <ul class="posts">
 						<?php 
-							showPosts($conn, $page_num, $page_limit, $page_offset);
-						?>   
+							mostrarVisitas($conn, $page_num, $page_limit, $page_offset);
+						?>
 				        </ul>
     				</tbody>
     			</table>
         	</div>
         </div>
-        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button><br>
+        <br><br><button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button><br>
     </div>
     
 
