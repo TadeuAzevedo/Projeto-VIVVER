@@ -113,18 +113,23 @@ Ex: Unidade, setor, prontuário, registro de atendimento/recepção, entre outro
 					if (mail($paraEmail, $assunto, $body, $headers)) {
 						$i = $i + 1;
 			    		echo "<script>setTimeout(function(){ alert('Email enviado com sucesso!'); window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
+			    		break;
 			    		$update = mysqli_query($con, "UPDATE cadastrovisita SET enviado='1' WHERE id=$idv");
 					}else {
 			    		echo "<script>setTimeout(function(){ alert('Falha ao enviar!'); window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
+			    		break;
 					}
 				}else{
 					echo "<script>setTimeout(function(){ alert('Todos emails já foram enviados!'); window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
+					break;
 				}
 			}else{
 				echo "<script>setTimeout(function(){ alert('Visita fora do período!'); window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
+				break;
 			}
 		}else{
 			echo "<script>setTimeout(function(){ alert('Visita inativa'); window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
+			break;
 		}
 	}
 }

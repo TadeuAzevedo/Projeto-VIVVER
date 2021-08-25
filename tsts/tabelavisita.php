@@ -2,13 +2,6 @@
 
 $conn = mysqli_connect('localhost', 'root', '', 'programacaosemanalteste');
 
-date_default_timezone_set('America/Sao_Paulo');
-$hoje = date("Y-m-d");
-
-$dataInicial = strtotime("Friday");
-$dataFinal = strtotime("+7 days", $dataInicial);
-
-
 if(isset($_GET['page'])){
 
     $page_num = filter_var($_GET['page'], FILTER_VALIDATE_INT,[
@@ -28,14 +21,26 @@ $page_limit = 6;
 $page_offset = $page_limit * ($page_num - 1);
 
 function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
+
+    date_default_timezone_set('America/Sao_Paulo');
+    $hoje = date("Y-m-d");
+
+    $dataInicial = strtotime("Friday");
+    $dataFinal = strtotime("+7 days", $dataInicial);
+    $dataInicialS = date("Y-m-d", $dataInicial);
+    $dataFinalS = date("Y-m-d", $dataFinal);
     
     $id = $_GET['id'];
-    $query = mysqli_query($conn,"SELECT * FROM `cadastrovisita` ORDER BY id LIMIT $page_limit OFFSET $page_offset");
+    $query = mysqli_query($conn,"SELECT * FROM `cadastrovisita` WHERE ativo = 1 ORDER BY id LIMIT $page_limit OFFSET $page_offset ");
     
     if(mysqli_num_rows($query) > 0){
 
-        while($row = mysqli_fetch_array($query)){ 
-            echo "<tr>";
+        while($row = mysqli_fetch_array($query)){
+            $idVisita = $row['id'];
+            $query1 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] <= $dataFinalS;
+            $query2 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] > $dataFinalS;
+            if($query1 || $query2){
+                echo "<tr>";
                 echo "<th scope='row' class='nome'>". $row['nomeColaborador'] ."</th>";
                 echo "<td class='local'>". $row['local'] ."</td>";
                 echo "<td class='data'>". date('d-m-Y', strtotime( $row['periodoInicial'])) ."</td>";
@@ -55,9 +60,15 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
                     echo "<td style='color: #0B0'>Sim</td>";
                 }
             echo "</tr>";
+            }else{
+                echo "<script>window.onload = voltar;</script>";
+                echo "<script>alert('Sem visitas programadas');</script>";
+                break;               
+            }
+            
         }
 
-        $total_posts = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM `cadastrovisita`"));
+        $total_posts = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM `cadastrovisita` WHERE ativo = 1"));
 
         $total_page = ceil($total_posts / $page_limit);
 
@@ -92,6 +103,11 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
+    <script>
+        function voltar(){
+            window.history.back();
+        }
+    </script>
     <title>Visitas cadastradas</title>
     <style>
         .page_link{
@@ -211,6 +227,15 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
             </div>
             <div class="col-6 direita">
                 <?php
+
+                    date_default_timezone_set('America/Sao_Paulo');
+                    $hoje = date("Y-m-d");
+
+                    $dataInicial = strtotime("Friday");
+                    $dataFinal = strtotime("+7 days", $dataInicial);
+                    $dataInicialS = date("Y-m-d", $dataInicial);
+                    $dataFinalS = date("Y-m-d", $dataFinal);
+
                     $dataIXML = date("d-m", $dataInicial);
                     $dataFXML = date("d-m", $dataFinal);
                     $arquivo = "arquivosXML/visitas_semanais_".$dataIXML."_".$dataFXML.".xml";
