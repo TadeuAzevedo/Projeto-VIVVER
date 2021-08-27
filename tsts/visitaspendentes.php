@@ -37,9 +37,6 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
 
         while($row = mysqli_fetch_array($query)){
             $idVisita = $row['id'];
-            $query1 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] <= $dataFinalS;
-            $query2 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] > $dataFinalS;
-            if($query1 || $query2){
                echo "<tr>";
                 echo "<th scope='row' class='nome'>". $row['nomeColaborador'] ."</th>";
                 echo "<td class='local'>". $row['local'] ."</td>";
@@ -49,14 +46,9 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
                 echo "<td class='transporte'>". $row['transporte'] ."</td>";
                 echo "<td class='sit' style='text-align: center;margin: 0;'><a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=2&prioridade=1'><img src='prioritario.png' width='40vw' class='img'></a>&ensp;<a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=2&prioridade=0'><img src='aprovado_cheio.png' width='40vw' class='img'></a>&ensp;<a href='aprovacao.php?id=".$id."&idv=".$idVisita."&nsituacao=3&prioridade=3'><img src='reprovado_cheio.png' width='40vw' class='img'></a></td>";
             echo "</tr>"; 
-            }else{
-                echo "<script>window.onload = voltar;</script>";
-                echo "<script>alert('Sem visitas programadas');</script>";
-                break;
-            }
         }
 
-        $total_posts = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM `cadastrovisita` WHERE situação = 1"));
+        $total_posts = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM `cadastrovisita` WHERE ativo = 1 AND situação = 1"));
 
         $total_page = ceil($total_posts / $page_limit);
 

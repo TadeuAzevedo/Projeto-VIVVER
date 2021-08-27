@@ -19,6 +19,72 @@ $result = mysqli_query($con,"SELECT * FROM cadastrocolaborador");
     </script>
     <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
     <title>Visitas do Usuário</title>
+    <style>
+        input{
+            outline: none;
+        }
+        input[type=search] {
+            -webkit-appearance: textfield;
+            -webkit-box-sizing: content-box;
+            font-family: inherit;
+            font-size: 90%;
+        }
+        input::-webkit-search-decoration,
+        input::-webkit-search-cancel-button {
+            display: none; 
+        }
+        input[type=search] {
+            background: #007bff url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+            border: 0;
+            width: 55px;
+            height: 100%;
+            
+            -webkit-border-radius: 10em;
+            -moz-border-radius: 10em;
+            border-radius: 10em;
+            
+            -webkit-transition: all .5s;
+            -moz-transition: all .5s;
+            transition: all .5s;
+        }
+        input[type=search]:focus {
+            width: 150px;
+            background-color: #fff;
+            border-color: #66CC75;
+            
+            -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+            -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+            box-shadow: 0 0 5px rgba(109,207,246,.5);
+        }
+        input:-moz-placeholder {
+            color: #999;
+        }
+        input::-webkit-input-placeholder {
+            color: #999;
+        }
+        #demo-2 input[type=search] {
+            width: 30px;
+            padding-left: 10px;
+            color: transparent;
+            cursor: pointer;
+        }
+        #demo-2 input[type=search]:hover {
+            background-color: #fff;
+        }
+        #demo-2 input[type=search]:focus {
+            width: 200px;
+            padding-left: 32px;
+            color: #000;
+            background-color: #fff;
+            cursor: auto;
+        }
+        #demo-2 input:-moz-placeholder {
+            color: transparent;
+        }
+        #demo-2 input::-webkit-input-placeholder {
+            color: transparent;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
@@ -40,6 +106,11 @@ $result = mysqli_query($con,"SELECT * FROM cadastrocolaborador");
 	        </div>
 	        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 	            <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <form id="demo-2" method="post" action="busca.php?id=<?php echo $id?>">
+                            <input type="search" name="busca" autocomplete="off">
+                        </form>
+                    </li>&ensp;
 	                <li class="nav-item">
 	                    <a class="navbar-nav" href="perfil.php?id=<?php echo $id ?>"><img src="icone.png" width="40em"></a>
 	                </li>

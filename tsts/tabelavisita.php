@@ -31,15 +31,13 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
     $dataFinalS = date("Y-m-d", $dataFinal);
     
     $id = $_GET['id'];
-    $query = mysqli_query($conn,"SELECT * FROM `cadastrovisita` WHERE ativo = 1 ORDER BY id LIMIT $page_limit OFFSET $page_offset ");
-    
+    $query = mysqli_query($conn,"SELECT * FROM `cadastrovisita` WHERE ativo = 1 AND periodoInicial BETWEEN '$dataInicialS' AND '$dataFinalS' ORDER BY periodoInicial DESC LIMIT $page_limit OFFSET $page_offset ");
+
     if(mysqli_num_rows($query) > 0){
 
         while($row = mysqli_fetch_array($query)){
             $idVisita = $row['id'];
-            $query1 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] <= $dataFinalS;
-            $query2 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] > $dataFinalS;
-            if($query1 || $query2){
+            
                 echo "<tr>";
                 echo "<th scope='row' class='nome'>". $row['nomeColaborador'] ."</th>";
                 echo "<td class='local'>". $row['local'] ."</td>";
@@ -60,15 +58,11 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
                     echo "<td style='color: #0B0'>Sim</td>";
                 }
             echo "</tr>";
-            }else{
-                echo "<script>window.onload = voltar;</script>";
-                echo "<script>alert('Sem visitas programadas');</script>";
-                break;               
-            }
+            
             
         }
 
-        $total_posts = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM `cadastrovisita` WHERE ativo = 1"));
+        $total_posts = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM `cadastrovisita` WHERE ativo = 1 AND periodoInicial BETWEEN '$dataInicialS' AND '$dataFinalS'"));
 
         $total_page = ceil($total_posts / $page_limit);
 
@@ -159,7 +153,70 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
         .direita{
             bottom: -16vh;
         }
-        
+        input{
+            outline: none;
+        }
+        input[type=search] {
+            -webkit-appearance: textfield;
+            -webkit-box-sizing: content-box;
+            font-family: inherit;
+            font-size: 90%;
+        }
+        input::-webkit-search-decoration,
+        input::-webkit-search-cancel-button {
+            display: none; 
+        }
+        input[type=search] {
+            background: #007bff url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+            border: 0;
+            width: 55px;
+            height: 40px;
+            
+            -webkit-border-radius: 10em;
+            -moz-border-radius: 10em;
+            border-radius: 10em;
+            
+            -webkit-transition: all .5s;
+            -moz-transition: all .5s;
+            transition: all .5s;
+        }
+        input[type=search]:focus {
+            width: 150px;
+            background-color: #fff;
+            border-color: #66CC75;
+            
+            -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+            -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+            box-shadow: 0 0 5px rgba(109,207,246,.5);
+        }
+        input:-moz-placeholder {
+            color: #999;
+        }
+        input::-webkit-input-placeholder {
+            color: #999;
+        }
+        #demo-2 input[type=search] {
+            width: 30px;
+            padding-left: 10px;
+            color: transparent;
+            cursor: pointer;
+        }
+        #demo-2 input[type=search]:hover {
+            background-color: #fff;
+        }
+        #demo-2 input[type=search]:focus {
+            width: 200px;
+            padding-left: 32px;
+            color: #000;
+            background-color: #fff;
+            cursor: auto;
+        }
+        #demo-2 input:-moz-placeholder {
+            color: transparent;
+        }
+        #demo-2 input::-webkit-input-placeholder {
+            color: transparent;
+        }
     </style>
 </head>
 
@@ -188,6 +245,11 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form id="demo-2" method="post" action="busca.php?id=<?php echo $idn?>">
+                        <input type="search" name="busca" autocomplete="off">
+                    </form>
+                </li>&ensp;
                 <li class="nav-item">
                     <a class="navbar-nav" href="perfil.php?id=<?php echo $idn ?>"><img src="icone.png" width="40em"></a>
                 </li>

@@ -37,9 +37,6 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
 
         while($row = mysqli_fetch_array($query)){
             $idVisita = $row['id'];
-            $query1 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] <= $dataFinalS;
-            $query2 = $row['periodoInicial'] >= $dataInicialS && $row['periodoFinal'] > $dataFinalS;
-            if($query1 || $query2){
                 echo "<tr>";
                 echo "<th scope='row' class='nome'>". $row['nomeColaborador'] ."</th>";
                 echo "<td class='local'>". $row['local'] ."</td>";
@@ -55,12 +52,6 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
                 }
                 echo "<td style='text-align: center; width: 10%'><a href='deletar.php?id=".$id."&idv=".$idVisita."' class='delete'><img src='delete.png' style='width: 3vw;'></a>&ensp;&ensp;<a data-target='#modalEdicao' data-toggle='modal' href='#modalEdicao' class='edit'><img src='edit.png' style='width: 3vw;'></a></td>";
             echo "</tr>";
-            }else{
-                echo "<script>window.onload = voltar;</script>";
-                echo "<script>alert('Sem visitas programadas');</script>";
-                break;               
-            }
-            
         }
 
         $total_posts = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM `cadastrovisita` WHERE ativo = 1"));
