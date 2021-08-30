@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-$id = $_GET['id'];
+$id = $_SESSION['id'];
 $con=mysqli_connect("localhost","root","","programacaosemanalteste");
 $result = mysqli_query($con,"SELECT * FROM cadastrocolaborador");
 ?>
@@ -89,12 +89,12 @@ $result = mysqli_query($con,"SELECT * FROM cadastrocolaborador");
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-	        <a class="navbar-brand" href="home.php?id=<?php echo $id ?>">
+	        <a class="navbar-brand" href="home.php">
 	            <img src="teste.png" width="150em" class="d-inline-block align-top" alt="">
 	        </a>
 	            <ul class="navbar-nav mr-auto">
 	                <li class="nav-item">
-	                    <a class="nav-link" href="home.php?id=<?php echo $id ?>">Início</a>
+	                    <a class="nav-link" href="home.php">Início</a>
 	                </li>
 	                <li class="nav-item">
 	                    <a class="nav-link" target="_blank" href="https://www.vivver.com.br/">Site oficial</a>
@@ -107,12 +107,12 @@ $result = mysqli_query($con,"SELECT * FROM cadastrocolaborador");
 	        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 	            <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <form id="demo-2" method="post" action="busca.php?id=<?php echo $id?>">
+                        <form id="demo-2" method="get" action="busca.php">
                             <input type="search" name="busca" autocomplete="off">
                         </form>
                     </li>&ensp;
 	                <li class="nav-item">
-	                    <a class="navbar-nav" href="perfil.php?id=<?php echo $id ?>"><img src="icone.png" width="40em"></a>
+	                    <a class="navbar-nav" href="perfil.php"><img src="icone.png" width="40em"></a>
 	                </li>
 	                <li class="nav-item">
 	                    <a class="nav-link" href="index.html">&ensp;Sair</a>

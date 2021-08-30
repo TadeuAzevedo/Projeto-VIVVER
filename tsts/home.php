@@ -2,7 +2,7 @@
 
 $con = mysqli_connect("localhost", "root", "", "programacaosemanalteste");
 session_start();
-$id = $_GET['id'];
+$id = $_SESSION['id'];
 $result = mysqli_query($con, "SELECT * FROM cadastrocolaborador WHERE id='$id'");
 $row = mysqli_fetch_array($result);
 $setor = $row['setor'];
@@ -25,44 +25,108 @@ include('calendario.php');
         }
     </script>
     <style>
-            .container {
-                font-family: 'Noto Sans', sans-serif;
-                margin-top: 80px;
-            }
-            h3 {
-                margin-bottom: 30px;
-            }
-            th {
-                height: 30px;
-                text-align: center;
-            }
-            th:hover{
-                background: #dddddd;
-                cursor: default;
-            }
-            td {
-                height: 60px;
-            }
-            td:hover{
-                background: #eeeeee;
-                cursor: default;
-            }
-            .today {
-                background: #56acff;
-            }
-            .today:hover{
-                background: #348add;
-            }
-            .visita{
-                background: green;
-            }
-            th:nth-of-type(1), td:nth-of-type(1) {
-                color: red;
-            }
-            th:nth-of-type(7), td:nth-of-type(7) {
-                color: blue;
-            }
-        </style>
+        .container {
+            font-family: 'Noto Sans', sans-serif;
+            margin-top: 80px;
+        }
+        h3 {
+            margin-bottom: 30px;
+        }
+        th {
+            height: 30px;
+            text-align: center;
+        }
+        th:hover{
+            background: #dddddd;
+            cursor: default;
+        }
+        td {
+            height: 60px;
+        }
+        td:hover{
+            background: #eeeeee;
+            cursor: default;
+        }
+        .today {
+            background: #56acff;
+        }
+        .today:hover{
+            background: #348add;
+        }
+        .visita{
+            background: green;
+        }
+        th:nth-of-type(1), td:nth-of-type(1) {
+            color: red;
+        }
+        th:nth-of-type(7), td:nth-of-type(7) {
+            color: blue;
+        }
+        input{
+            outline: none;
+        }
+        input[type=search] {
+            -webkit-appearance: textfield;
+            -webkit-box-sizing: content-box;
+            font-family: inherit;
+            font-size: 90%;
+        }
+        input::-webkit-search-decoration,
+        input::-webkit-search-cancel-button {
+            display: none; 
+        }
+        input[type=search] {
+            background: #007bff url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+            border: 0;
+            width: 55px;
+            height: 40px;
+            
+            -webkit-border-radius: 10em;
+            -moz-border-radius: 10em;
+            border-radius: 10em;
+            
+            -webkit-transition: all .5s;
+            -moz-transition: all .5s;
+            transition: all .5s;
+        }
+        input[type=search]:focus {
+            width: 150px;
+            background-color: #fff;
+            border-color: #66CC75;
+            
+            -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+            -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+            box-shadow: 0 0 5px rgba(109,207,246,.5);
+        }
+        input:-moz-placeholder {
+            color: #999;
+        }
+        input::-webkit-input-placeholder {
+            color: #999;
+        }
+        #demo-2 input[type=search] {
+            width: 30px;
+            padding-left: 10px;
+            color: transparent;
+            cursor: pointer;
+        }
+        #demo-2 input[type=search]:hover {
+            background-color: #fff;
+        }
+        #demo-2 input[type=search]:focus {
+            width: 200px;
+            padding-left: 32px;
+            color: #000;
+            background-color: #fff;
+            cursor: auto;
+        }
+        #demo-2 input:-moz-placeholder {
+            color: transparent;
+        }
+        #demo-2 input::-webkit-input-placeholder {
+            color: transparent;
+        }
+    </style>
     <title>Home</title>
 </head>
 <body>
@@ -76,12 +140,12 @@ include('calendario.php');
 
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-        <a class="navbar-brand" href="home.php?id=<?php echo $id ?>">
+        <a class="navbar-brand" href="home.php">
             <img src="teste.png" width="150em" class="d-inline-block align-top" alt="">
         </a>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="home.php?id=<?php echo $id ?>">Início</a>
+                    <a class="nav-link" href="home.php">Início</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" target="_blank" href="https://www.vivver.com.br/">Site oficial</a>
@@ -94,7 +158,12 @@ include('calendario.php');
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="navbar-nav" href="perfil.php?id=<?php echo $id ?>"><img src="icone.png" width="40em"></a>
+                    <form id="demo-2" method="get" action="busca.php">
+                        <input type="search" name="busca" autocomplete="off">
+                    </form>
+                </li>&ensp;
+                <li class="nav-item">
+                    <a class="navbar-nav" href="perfil.php"><img src="icone.png" width="40em"></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.html">&ensp;Sair</a>
@@ -135,11 +204,11 @@ include('calendario.php');
                     if($row['setor'] == 0 || $row['setor'] == 1 || $row['setor'] == 4 ){
                         //Botão 1 - Cadastrar Visita
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
-                        echo "'cadastrovisita.php?id=".$id."'";
+                        echo "'cadastrovisita.php'";
                         echo ';">Cadastrar visita</button>';
                         //Botão 2 - Ver visitas cadastradas no usuário
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
-                        echo "'visitasusuario.php?id=".$id."'";
+                        echo "'visitasusuario.php'";
                         echo ';">Minhas visitas cadastradas</button>';
                     }
                     //if($row['setor'] == 0 || $row['setor'] == 2 || $row['setor'] == 3 || $row['setor'] == 4){
@@ -151,27 +220,27 @@ include('calendario.php');
                     if($row['setor'] == 4 || $row['setor'] == 0){
                         //Botão 4 - Ver todas visitas cadastradas
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
-                        echo "'tabelavisita.php?id=".$id."'";
+                        echo "'tabelavisita.php'";
                         echo ';">Visitas referentes à semana seguinte</button>';
                         //Botão 5 - Ver todos colaboradores cadastrados
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
-                        echo "'tabelacolaborador.php?id=".$id."'";
+                        echo "'tabelacolaborador.php'";
                         echo ';">Colaboradores cadastrados</button>';
                         //Botão 6 - Enviar email de visita para implantadores
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
-                        echo "'formEmail.php?id=".$id."'";
+                        echo "'formEmail.php'";
                         echo ';">Enviar emails para implantadores</button>';
                         //Botão 7 - Aprovar visitas
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
-                        echo "'visitaspendentes.php?id=".$id."'";
+                        echo "'visitaspendentes.php'";
                         echo ';">Visitas pendentes</button>';
                         //Botão 8 - Editar visitas
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
-                        echo "'deleteVisita.php?id=".$id."'";
+                        echo "'deleteVisita.php'";
                         echo ';">Editar visitas</button>';
                         //Botão 9 - Histórico visitas
                         echo '<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = ';
-                        echo "'historicovisitas.php?id=".$id."'";
+                        echo "'historicovisitas.php'";
                         echo ';">Histórico de visitas</button>';
                     
                     }

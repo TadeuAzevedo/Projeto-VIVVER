@@ -1,6 +1,6 @@
 <?php
 session_start();
-$id = $_GET['id'];
+$id = $_SESSION['id'];
 
 $dataInicial = strtotime("Friday");
 $dataFinal = strtotime("+7 days", $dataInicial);
@@ -69,5 +69,5 @@ function createXMLfile($array){
 
 }
 
-echo "<script>setTimeout(function(){ alert('Arquivo XML Gerado!'); window.location.href = 'tabelavisita.php?id=".$id."'}, 1000);</script>";
+echo "<script>setTimeout(function(){ alert('Arquivo XML Gerado!'); window.location.href = 'tabelavisita.php'}, 1000);</script>";
 ?>

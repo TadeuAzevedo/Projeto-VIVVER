@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    $id = $_GET['id'];
+    $id = $_SESSION['id'];
 
     $con = mysqli_connect("localhost","root","","programacaosemanalteste");
     $txtNome = $_POST['txtNome'];
@@ -26,12 +26,12 @@
 
         <nav class="navbar navbar-expand-md navbar-dark bg-primary">
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-            <a class="navbar-brand" href="home.php?id='.$id.'">
+            <a class="navbar-brand" href="home.php">
                 <img src="teste.png" width="150em" class="d-inline-block align-top" alt="">
             </a>
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="home.php?id='.$id.'">Início</a>
+                        <a class="nav-link" href="home.php">Início</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" target="_blank" href="https://www.vivver.com.br/">Site oficial</a>
@@ -44,7 +44,12 @@
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="navbar-nav" href="perfil.php?id='.$id.'"><img src="icone.png" width="40em"></a>
+                        <form id="demo-2" method="get" action="busca.php">
+                            <input type="search" name="busca" autocomplete="off">
+                        </form>
+                    </li>&ensp;
+                    <li class="nav-item">
+                        <a class="navbar-nav" href="perfil.php"><img src="icone.png" width="40em"></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.html">&ensp;Sair</a>
@@ -60,8 +65,8 @@
                     <div class="dentro">
                         <h1>Visita inserida com sucesso!</h1>
                         <br>
-                        <a href="cadastrovisita.php?id='.$id.'"><button type="button"  id="btn">Cadastrar outra visita</button></a><br><br>
-                        <a href="visitasusuario.php?id='.$id.'"><button type="button"  id="btn">Visitas cadastradas</button></a>
+                        <a href="cadastrovisita.php"><button type="button"  id="btn">Cadastrar outra visita</button></a><br><br>
+                        <a href="visitasusuario.php"><button type="button"  id="btn">Visitas cadastradas</button></a>
                         <style>
                             .fora{
                                 display: flex;
@@ -115,7 +120,72 @@
         </script>
         <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
         <title>Visitas do Usuário</title>
-        </script>
+        <style>
+            input{
+                outline: none;
+            }
+            input[type=search] {
+                -webkit-appearance: textfield;
+                -webkit-box-sizing: content-box;
+                font-family: inherit;
+                font-size: 90%;
+            }
+            input::-webkit-search-decoration,
+            input::-webkit-search-cancel-button {
+                display: none; 
+            }
+            input[type=search] {
+                background: #007bff url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+                border: 0;
+                width: 55px;
+                height: 100%;
+                
+                -webkit-border-radius: 10em;
+                -moz-border-radius: 10em;
+                border-radius: 10em;
+                
+                -webkit-transition: all .5s;
+                -moz-transition: all .5s;
+                transition: all .5s;
+            }
+            input[type=search]:focus {
+                width: 150px;
+                background-color: #fff;
+                border-color: #66CC75;
+                
+                -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+                -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+                box-shadow: 0 0 5px rgba(109,207,246,.5);
+            }
+            input:-moz-placeholder {
+                color: #999;
+            }
+            input::-webkit-input-placeholder {
+                color: #999;
+            }
+            #demo-2 input[type=search] {
+                width: 30px;
+                padding-left: 10px;
+                color: transparent;
+                cursor: pointer;
+            }
+            #demo-2 input[type=search]:hover {
+                background-color: #fff;
+            }
+            #demo-2 input[type=search]:focus {
+                width: 200px;
+                padding-left: 32px;
+                color: #000;
+                background-color: #fff;
+                cursor: auto;
+            }
+            #demo-2 input:-moz-placeholder {
+                color: transparent;
+            }
+            #demo-2 input::-webkit-input-placeholder {
+                color: transparent;
+            }
+        </style>
     </head>
     
 </html>

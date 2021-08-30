@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $con = mysqli_connect('localhost', 'root', '', 'programacaosemanalteste');
 
 $usuario = $_POST['usuario'];
@@ -14,9 +14,10 @@ $sql = "SELECT * FROM cadastrocolaborador WHERE usuario = '$usuario' AND senha =
 $result = mysqli_query($con, $sql);
 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $count = mysqli_num_rows($result);
+$_SESSION['id'] = $row['id'];
 
 if($count == 1){
-    echo "<script>onload = window.location='home.php?id=".$row['id']."';</script>";
+    echo "<script>onload = window.location='home.php';</script>";
 }
 else{
     echo "<script>setTimeout(function(){ alert('Falha no login'); window.location.href = 'index.html'}, 1000);</script>";

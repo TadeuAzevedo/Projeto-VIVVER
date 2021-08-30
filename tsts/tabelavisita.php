@@ -30,7 +30,7 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
     $dataInicialS = date("Y-m-d", $dataInicial);
     $dataFinalS = date("Y-m-d", $dataFinal);
     
-    $id = $_GET['id'];
+    $id = $_SESSION['id'];
     $query = mysqli_query($conn,"SELECT * FROM `cadastrovisita` WHERE ativo = 1 AND periodoInicial BETWEEN '$dataInicialS' AND '$dataFinalS' ORDER BY periodoInicial DESC LIMIT $page_limit OFFSET $page_offset ");
 
     if(mysqli_num_rows($query) > 0){
@@ -73,17 +73,17 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
 
         echo "<li class='paginas'>";
         if($current_page_num > 1){
-           echo '<br><a href="?id='.$id.'&page='.$prev_page.'" class="page_link">Anterior</a>';
+           echo '<br><a href="?page='.$prev_page.'" class="page_link">Anterior</a>';
         }
         for($i = 1; $i <= $total_page; $i++){
             if($i == $current_page_num){
-                echo '<a href="?id='.$id.'&page='.$i.'" class="page_link active_page">'.$i.'</a>';
+                echo '<a href="?page='.$i.'" class="page_link active_page">'.$i.'</a>';
             }else{
-                echo '<a href="?id='.$id.'&page='.$i.'" class="page_link">'.$i.'</a>';
+                echo '<a href="?page='.$i.'" class="page_link">'.$i.'</a>';
             }   
         }
         if($total_page+1 != $next_page){
-           echo '<a href="?id='.$id.'&page='.$next_page.'" class="page_link">Próxima</a>';
+           echo '<a href="?page='.$next_page.'" class="page_link">Próxima</a>';
         }
         echo "</li>";
     }else{
@@ -222,18 +222,18 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
 
 <body>
     <?php 
-
-    $idn = $_GET['id'];
+    session_start();
+    $idn = $_SESSION['id'];
 
     ?>
    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-        <a class="navbar-brand" href="home.php?id=<?php echo $idn ?>">
+        <a class="navbar-brand" href="home.php">
             <img src="teste.png" width="150em" class="d-inline-block align-top" alt="">
         </a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="home.php?id=<?php echo $idn ?>">Início</a>
+                <a class="nav-link" href="home.php">Início</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" target="_blank" href="https://www.vivver.com.br/">Site oficial</a>
@@ -246,12 +246,12 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <form id="demo-2" method="post" action="busca.php?id=<?php echo $idn?>">
+                    <form id="demo-2" method="get" action="busca.php">
                         <input type="search" name="busca" autocomplete="off">
                     </form>
                 </li>&ensp;
                 <li class="nav-item">
-                    <a class="navbar-nav" href="perfil.php?id=<?php echo $idn ?>"><img src="icone.png" width="40em"></a>
+                    <a class="navbar-nav" href="perfil.php"><img src="icone.png" width="40em"></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.html">&ensp;Sair</a>
@@ -285,7 +285,7 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
                 </table>
             </div>
             <div class="col-6 esquerda">
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'gerarXML.php?id=<?php echo $idn?>';">Gerar arquivo XML</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'gerarXML.php';">Gerar arquivo XML</button>
             </div>
             <div class="col-6 direita">
                 <?php
@@ -309,7 +309,7 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
                 ?>
             </div>
         </div>
-        <br><button type="button" class="btn btn-primary btn-lg btn-block baixo" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button><br>
+        <br><button type="button" class="btn btn-primary btn-lg btn-block baixo" onclick="location.href = 'cadastrovisita.php';">Cadastrar visita</button><br>
     </div>
     
 

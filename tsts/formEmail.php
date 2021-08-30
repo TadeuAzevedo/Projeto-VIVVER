@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-$id = $_GET['id'];
+$id = $_SESSION['id'];
 
 $con = mysqli_connect("localhost", "root", "", "programacaosemanalteste");
 $pessoas = "SELECT * FROM cadastrocolaborador WHERE setor = 1 OR setor = 4";
@@ -111,23 +111,23 @@ Ex: Unidade, setor, prontuário, registro de atendimento/recepção, entre outro
 					//Fim email
 
 					if (mail($paraEmail, $assunto, $body, $headers)) {
-			    		echo "<script>setTimeout(function(){  window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
+			    		echo "<script>setTimeout(function(){  window.location.href = 'home.php'}, 1000);</script>";
 			    		$update = mysqli_query($con, "UPDATE cadastrovisita SET enviado='1' WHERE id=$idv");
 
 					}else {
-			    		echo "<script>setTimeout(function(){  window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
+			    		echo "<script>setTimeout(function(){  window.location.href = 'home.php'}, 1000);</script>";
 			    		
 					}
 				}else{
-					echo "<script>setTimeout(function(){  window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
+					echo "<script>setTimeout(function(){  window.location.href = 'home.php'}, 1000);</script>";
 					
 				}
 			}else{
-				echo "<script>setTimeout(function(){  window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
+				echo "<script>setTimeout(function(){  window.location.href = 'home.php'}, 1000);</script>";
 				
 			}
 		}else{
-			echo "<script>setTimeout(function(){  window.location.href = 'home.php?id=".$id."'}, 1000);</script>";
+			echo "<script>setTimeout(function(){  window.location.href = 'home.php'}, 1000);</script>";
 			
 		}
 	}

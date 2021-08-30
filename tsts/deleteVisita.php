@@ -30,7 +30,7 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
     $dataInicialS = date("Y-m-d", $dataInicial);
     $dataFinalS = date("Y-m-d", $dataFinal);
     
-    $id = $_GET['id'];
+    $id = $_SESSION['id'];
     $query = mysqli_query($conn,"SELECT * FROM `cadastrovisita` WHERE ativo = 1 ORDER BY id LIMIT $page_limit OFFSET $page_offset ");
     
     if(mysqli_num_rows($query) > 0){
@@ -50,7 +50,7 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
                 }else if($row['situação'] == 3){
                     echo "<td style='color: #B00;'>Reprovado</td>";
                 }
-                echo "<td style='text-align: center; width: 10%'><a href='deletar.php?id=".$id."&idv=".$idVisita."' class='delete'><img src='delete.png' style='width: 3vw;'></a>&ensp;&ensp;<a data-target='#modalEdicao' data-toggle='modal' href='#modalEdicao' class='edit'><img src='edit.png' style='width: 3vw;'></a></td>";
+                echo "<td style='text-align: center; width: 10%'><a href='deletar.php?idv=".$idVisita."' class='delete'><img src='delete.png' style='width: 3vw;'></a>&ensp;&ensp;<a data-target='#modalEdicao' data-toggle='modal' href='#modalEdicao' class='edit'><img src='edit.png' style='width: 3vw;'></a></td>";
             echo "</tr>";
         }
 
@@ -65,17 +65,17 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
 
         echo "<li class='paginas'>";
         if($current_page_num > 1){
-           echo '<br><a href="?id='.$id.'&page='.$prev_page.'" class="page_link">Anterior</a>';
+           echo '<br><a href="?page='.$prev_page.'" class="page_link">Anterior</a>';
         }
         for($i = 1; $i <= $total_page; $i++){
             if($i == $current_page_num){
-                echo '<a href="?id='.$id.'&page='.$i.'" class="page_link active_page">'.$i.'</a>';
+                echo '<a href="?page='.$i.'" class="page_link active_page">'.$i.'</a>';
             }else{
-                echo '<a href="?id='.$id.'&page='.$i.'" class="page_link">'.$i.'</a>';
+                echo '<a href="?page='.$i.'" class="page_link">'.$i.'</a>';
             }   
         }
         if($total_page+1 != $next_page){
-           echo '<a href="?id='.$id.'&page='.$next_page.'" class="page_link">Próxima</a>';
+           echo '<a href="?page='.$next_page.'" class="page_link">Próxima</a>';
         }
         echo "</li>";
     }else{
@@ -151,25 +151,88 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
         .edit:hover{
             opacity: 0.5;
         }
-        
+        input{
+            outline: none;
+        }
+        input[type=search] {
+            -webkit-appearance: textfield;
+            -webkit-box-sizing: content-box;
+            font-family: inherit;
+            font-size: 90%;
+        }
+        input::-webkit-search-decoration,
+        input::-webkit-search-cancel-button {
+            display: none; 
+        }
+        input[type=search] {
+            background: #007bff url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+            border: 0;
+            width: 55px;
+            height: 40px;
+            
+            -webkit-border-radius: 10em;
+            -moz-border-radius: 10em;
+            border-radius: 10em;
+            
+            -webkit-transition: all .5s;
+            -moz-transition: all .5s;
+            transition: all .5s;
+        }
+        input[type=search]:focus {
+            width: 150px;
+            background-color: #fff;
+            border-color: #66CC75;
+            
+            -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+            -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+            box-shadow: 0 0 5px rgba(109,207,246,.5);
+        }
+        input:-moz-placeholder {
+            color: #999;
+        }
+        input::-webkit-input-placeholder {
+            color: #999;
+        }
+        #demo-2 input[type=search] {
+            width: 30px;
+            padding-left: 10px;
+            color: transparent;
+            cursor: pointer;
+        }
+        #demo-2 input[type=search]:hover {
+            background-color: #fff;
+        }
+        #demo-2 input[type=search]:focus {
+            width: 200px;
+            padding-left: 32px;
+            color: #000;
+            background-color: #fff;
+            cursor: auto;
+        }
+        #demo-2 input:-moz-placeholder {
+            color: transparent;
+        }
+        #demo-2 input::-webkit-input-placeholder {
+            color: transparent;
+        }
     </style>
 </head>
 
 <body>
 
     <?php 
-
-    $idn = $_GET['id'];
+    session_start();
+    $idn = $_SESSION['id'];
 
     ?>
    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-        <a class="navbar-brand" href="home.php?id=<?php echo $idn ?>">
+        <a class="navbar-brand" href="home.php">
             <img src="teste.png" width="150em" class="d-inline-block align-top" alt="">
         </a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="home.php?id=<?php echo $idn ?>">Início</a>
+                <a class="nav-link" href="home.php">Início</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" target="_blank" href="https://www.vivver.com.br/">Site oficial</a>
@@ -182,7 +245,12 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="navbar-nav" href="perfil.php?id=<?php echo $idn ?>"><img src="icone.png" width="40em"></a>
+                    <form id="demo-2" method="get" action="busca.php">
+                        <input type="search" name="busca" autocomplete="off">
+                    </form>
+                </li>&ensp;
+                <li class="nav-item">
+                    <a class="navbar-nav" href="perfil.php"><img src="icone.png" width="40em"></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.html">&ensp;Sair</a>
@@ -216,7 +284,7 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
             </div>
         </div>
         <br><br><br>
-        <button type="button" class="btn btn-primary btn-lg btn-block baixo" onclick="location.href = 'cadastrovisita.php?id=<?php echo $id?>';">Cadastrar visita</button><br>
+        <button type="button" class="btn btn-primary btn-lg btn-block baixo" onclick="location.href = 'cadastrovisita.php';">Cadastrar visita</button><br>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

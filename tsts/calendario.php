@@ -1,6 +1,6 @@
 <?php
 
-$id = $_GET['id'];
+$id = $_SESSION['id'];
 
 $con = mysqli_connect("localhost", "root", "", "programacaosemanalteste");
 $getUser = "SELECT nomeCompleto FROM cadastrocolaborador WHERE id='$id'";
