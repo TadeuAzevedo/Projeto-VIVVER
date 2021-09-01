@@ -6,7 +6,7 @@ $id = $_SESSION['id'];
 $search = $_GET['busca'];
 
 $con = mysqli_connect("localhost", "root", "", "programacaosemanalteste");
-$sql = "SELECT * FROM cadastrovisita WHERE nomeColaborador LIKE '%$search%'";
+$sql = "SELECT * FROM cadastrocolaborador WHERE nomeCompleto LIKE '%$search%'";
 $run = mysqli_query($con,$sql);
 $foundnum = mysqli_num_rows($run);
 
@@ -19,6 +19,7 @@ $foundnum = mysqli_num_rows($run);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/x-icon" href="transparentVV.png">
     <script>
         function voltar(){
             window.history.back();
@@ -89,6 +90,13 @@ $foundnum = mysqli_num_rows($run);
         #demo-2 input::-webkit-input-placeholder {
             color: transparent;
         }
+        .nome{
+            color: black;
+        }
+        .nome:hover{
+            text-decoration: none;
+            color: #007afe;
+        }
     </style>
 	<title>Busca</title>
 </head>
@@ -134,11 +142,9 @@ $foundnum = mysqli_num_rows($run);
     				<thead class="thead-dark">
     					<tr>
     						<th scope="col">Nome</th>
-    						<th scope="col">Local</th>
-    						<th scope="col">Data Inicial</th>
-    						<th scope="col">Data Final</th>
-    						<th scope="col">Atividade</th>
-    						<th scope="col">Transporte</th>
+    						<th scope="col">Email</th>
+    						<th scope="col">Telefone</th>
+    						<th scope="col">Setor</th>
     					</tr>
     				</thead>
     				<tbody>
@@ -148,17 +154,23 @@ $foundnum = mysqli_num_rows($run);
 								echo "<script>setTimeout(function(){alert('Sem dados encontrados');voltar();}, 1000);</script>";
 							}else{
 								echo "<br><h1 style='text-align: center'>$foundnum Resultados encontrados para \"".$search."\"</h1><br>";
-								$sql = "SELECT * FROM cadastrovisita WHERE nomeColaborador LIKE '%$search%'";
+								$sql = "SELECT * FROM cadastrocolaborador WHERE nomeCompleto LIKE '%$search%'";
 								$getQuery = mysqli_query($con,$sql);
 
 								while($runrows = mysqli_fetch_array($getQuery)){
 									echo "<tr>";
-			                            echo "<th scope='row'>". $runrows['nomeColaborador'] ."</th>";
-			                            echo "<td>". $runrows['local'] ."</td>";
-			                            echo "<td>". date('d-m-Y', strtotime( $runrows['periodoInicial'])) ."</td>";
-			                            echo "<td>". date('d-m-Y', strtotime( $runrows['periodoFinal'])) ."</td>";
-			                            echo "<td>". $runrows['atividade'] ."</td>";
-			                            echo "<td>". $runrows['transporte'] ."</td>";
+			                            echo "<th scope='row'><a href='paginaPessoa.php?pessoa=".$runrows['id']."' class='nome'>". $runrows['nomeCompleto'] ."</a></th>";
+			                            echo "<td>". $runrows['email'] ."</td>";
+			                            echo "<td>". $runrows['telefone'] ."</td>";
+			                            if($runrows['setor'] == 1){
+                                            echo "<td>Implantador</td>";
+                                        }else if($runrows['setor'] == 2){
+                                            echo "<td>Logística</td>";
+                                        }else if($runrows['setor'] == 3){
+                                            echo "<td>Financeiro</td>";
+                                        }else if($runrows['setor'] == 4){
+                                            echo "<td>Coordenador</td>";
+                                        }
 			                            echo "</tr>";
 								}
 							}

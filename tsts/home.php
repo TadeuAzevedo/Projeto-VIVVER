@@ -195,7 +195,7 @@ include('calendario.php');
                         }
                     ?>
                 </table>
-                <h3 style="text-align: center;"><a href="?id=<?php echo $id ?>&ym=<?php echo $prev; ?>">&lt;</a> <?php echo $html_title; ?> <a href="?id=<?php echo $id ?>&ym=<?php echo $next; ?>">&gt;</a></h3>
+                <h3 style="text-align: center;"><a href="?ym=<?php echo $prev; ?>">&lt;</a> <?php echo $html_title; ?> <a href="?ym=<?php echo $next; ?>">&gt;</a></h3>
             </div>
             <div class="col-6 direita">
 
