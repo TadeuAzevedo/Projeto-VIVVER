@@ -176,6 +176,10 @@ if($setor == 2 || $setor == 3){
                                 <option value="Não utilizado">Não utilizado</option>
                             </select>
                             <br><br>
+                            <label for="municipio">Município de origem:</label>
+                            <br>
+                            <input type="text" name="municipio" id="municipio" autocomplete="off">
+                            <br><br>
                             <label for="atividade">Atividade:</label>
                             <textarea name="txtAtv" id="txtAtv" maxlength="255"></textarea>
                             <label for="obs">Observações:</label>
