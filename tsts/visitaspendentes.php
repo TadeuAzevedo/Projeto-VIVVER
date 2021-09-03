@@ -79,7 +79,7 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
         }
         echo "</li>";
     }else{
-        echo "<script>window.onload = voltar;</script>";
+        echo "<script>window.onload = location.href = 'home.php';</script>";
     }
 }
 ?>

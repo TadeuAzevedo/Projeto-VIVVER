@@ -43,6 +43,7 @@ function createXMLfile($array){
 		$dataI = $array [$i]['periodoInicial'];
 		$dataF = $array [$i]['periodoFinal'];
 		$transporte = $array [$i]['transporte'];
+		$municipio = $array [$i]['municipio'];
 		$atividade = $array [$i]['atividade'];
 		$observacoes = $array [$i]['observacoes'];
 
@@ -58,6 +59,8 @@ function createXMLfile($array){
 		$visita->appendChild($dataFV);
 		$transporteV = $dom->createElement('Transporte', $transporte);
 		$visita->appendChild($transporteV);
+		$municipioV = $dom->createElement('Municipio', $municipio);
+		$visita->appendChild($municipioV);
 		$atividadeV = $dom->createElement('Atividade', $atividade);
 		$visita->appendChild($atividadeV);
 		$observacoesV = $dom->createElement('Observacoes', $observacoes);

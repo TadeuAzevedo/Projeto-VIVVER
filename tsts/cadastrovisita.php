@@ -173,6 +173,7 @@ if($setor == 2 || $setor == 3){
                                 <option value="Moto Táxi">Moto Táxi</option>
                                 <option value="Táxi/Uber">Táxi/Uber</option>
                                 <option value="Acompanhante em outra AV">Acompanhante em outra AV</option>
+                                <option value="A confirmar">A confirmar</option>
                                 <option value="Não utilizado">Não utilizado</option>
                             </select>
                             <br><br>
