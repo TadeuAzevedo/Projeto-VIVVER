@@ -6,6 +6,8 @@ session_start();
 $id = $_SESSION['id'];
 $resultPermissao = mysqli_query($conn, "SELECT * FROM cadastrocolaborador WHERE id = $id");
 $rowPermissao = mysqli_fetch_array($resultPermissao);
+$setor = $rowPermissao['setor'];
+
 if($rowPermissao['setor'] == 4){
 
 if(isset($_GET['page'])){
@@ -43,6 +45,9 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
 
         while($row = mysqli_fetch_array($query)){
             $idVisita = $row['id'];
+            echo '<script>
+        window.localStorage.setItem("idv", "'.$idVisita.'")
+    </script>';
                 echo "<tr>";
                 echo "<th scope='row' class='nome'>". $row['nomeColaborador'] ."</th>";
                 echo "<td class='local'>". $row['local'] ."</td>";
@@ -56,7 +61,7 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
                 }else if($row['situação'] == 3){
                     echo "<td style='color: #B00;'>Reprovado</td>";
                 }
-                echo "<td style='text-align: center; width: 10%'><a href='deletar.php?idv=".$idVisita."' class='delete'><img src='delete.png' style='width: 3vw;'></a>&ensp;&ensp;<a data-target='#modalEdicao' data-toggle='modal' href='#modalEdicao' class='edit'><img src='edit.png' style='width: 3vw;'></a></td>";
+                echo "<td style='text-align: center; width: 10%'><a href='deletar.php?idv=".$idVisita."' class='delete'><img src='delete.png' style='width: 3vw;'></a>&ensp;&ensp;<a data-target='#exampleModal' data-toggle='modal' href='#exampleModal?idv=".$idVisita."' class='edit'><img src='edit.png' style='width: 3vw;'></a></td>";
             echo "</tr>";
         }
 
@@ -225,6 +230,155 @@ function mostrarVisitas($conn, $current_page_num, $page_limit, $page_offset){
 </head>
 
 <body>
+    <style>
+        textarea{
+            width: 100%;
+            font-size: 90%;
+        }
+        label{
+            color: #686868;
+        }
+        select{
+            height: 30px;
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid grey;
+            outline: none;
+        }
+        select:hover{
+            cursor: pointer;
+            border-bottom: 1px solid black;
+        }
+        input{
+            width: 100%;
+        }
+        input[type=text]{
+            border: none;
+            border-bottom: 1px solid grey;
+            outline: none;
+        }
+        input[type=text]:hover{
+            border-bottom: 1px solid black;
+        }
+        input[type=date]{
+            border: none;
+            border-bottom: 1px solid grey;
+            outline: none;
+        }
+        input[type=date]:hover{
+            cursor: text;
+            border-bottom: 1px solid black;
+        }
+        input[type=radio]{
+            display: inline;
+            width: auto;
+        }
+        p{
+            text-align: center;
+        }
+        #btn {
+            background-color: #01659e;
+            color: white;
+            border-radius: 2px;
+            width: 100%;
+            height: 80px;
+            font-size: 170%;
+            border: none;
+        }
+        #btn:hover {
+            background-color: #249820;
+            cursor: pointer;
+        }
+    </style>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar visita</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="editVisita.php" method="post">
+                <label>Nome:</label>
+                <br>
+                <select name="txtNome">
+                    <?php
+
+                        if($setor == 1){
+                            $resultB = mysqli_query($conn, "SELECT nomeCompleto FROM cadastrocolaborador WHERE id=$id");
+                        }else if($setor == 4){
+                            $resultB = mysqli_query($conn, "SELECT nomeCompleto FROM cadastrocolaborador WHERE setor = 1 OR setor = 4");
+                        }
+                        while($rows = mysqli_fetch_array($resultB)){
+                            echo "<option>" .$rows['nomeCompleto'] . "</option>";
+                        }
+
+                    ?>
+                </select>
+                <br>
+                <br>
+                <label>Local:</label>
+                <br>
+                <input type="text" name="txtLocal">
+                <br>
+                <br>
+                <label>Data inicial:</label>
+                <br>
+                <input type="date" name="dtInicial">
+                <br>
+                <br>
+                <label>Data final:</label>
+                <br>
+                <input type="date" name="dtFinal">
+                <br>
+                <br>
+                <label>Transporte:</label>
+                <br>
+                <select name="txtTransporte">
+                    <option value="Veículo da Empresa">Veículo da Empresa</option>
+                    <option value="Veículo Próprio">Veículo Próprio</option>
+                    <option value="Veículo do Parceiro">Veículo do Parceiro</option>
+                    <option value="Veículo Locado">Veículo Locado</option>
+                    <option value="Ônibus">Ônibus</option>
+                    <option value="Avião">Avião</option>
+                    <option value="Moto Táxi">Moto Táxi</option>
+                    <option value="Táxi/Uber">Táxi/Uber</option>
+                    <option value="Acompanhante em outra AV">Acompanhante em outra AV</option>
+                    <option value="A confirmar">A confirmar</option>
+                    <option value="Não utilizado">Não utilizado</option>
+                </select>
+                <br>
+                <br>
+                <label>Município:</label>
+                <br>
+                <input type="text" name="txtMunicipio">
+                <br>
+                <br>
+                <label>Atividade:</label>
+                <br>
+                <textarea name="txtAtv"></textarea>
+                <br>
+                <br>
+                <label>Observações:</label>
+                <br>
+                <textarea name="txtObs"></textarea>
+                <br>
+                <br>
+                <label>Ativo?</label>
+                <br>
+                <p>
+                <input type="radio" name="ativo" value="1"> Sim
+                <input type="radio" name="ativo" value="0"> Não
+                </p>
+                <br>
+                <input type="submit" name="enviar" value="Editar" id="btn">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <?php 
 
